@@ -47,6 +47,7 @@
             tools:text="Restaurant Indien" />
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -90,13 +91,14 @@
             android:layout_width="0dp"
             android:layout_height="0.75dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
 
+            android:layout_marginTop="20dp"
             android:background="#DADADA"
             app:layout_constraintBottom_toTopOf="@+id/tvRestaurantHours"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvRestaurantName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRestaurantTotalNumberReviews" />
+
 
         <ImageView
             android:id="@+id/icon_hours"
@@ -249,6 +251,160 @@
             app:layout_constraintBottom_toBottomOf="@id/tvRestaurantPhoneNumber"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvRestaurantPhoneNumber" />
+
+
+        <!-- feature to add -->
+
+        <!--Average rating of the restaurant -->
+        <TextView
+            android:id="@+id/tvRestaurantAverageRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/jakarta_semibold"
+            tools:text="1.0"
+            android:textColor="@color/rating_gray_color"
+            android:textSize="@dimen/rating_txt_size"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="@+id/rbRestaurantAverageRatingStars"
+            app:layout_constraintStart_toStartOf="@+id/rbRestaurantAverageRatingStars"
+            app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
+
+        <!--Average rating stars -->
+        <RatingBar
+            android:id="@+id/rbRestaurantAverageRatingStars"
+            style="@android:style/Widget.Material.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:isIndicator="true"
+            android:max="5"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/rating_background_progress_tint"
+            android:progressTint="@color/rating_stars_color"
+            android:rating="0"
+            android:secondaryProgressTint="@android:color/transparent"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="@+id/tvRestaurantType"
+            app:layout_constraintTop_toBottomOf="@+id/tvRestaurantAverageRating" />
+
+        <!--Total of restaurant's reviews-->
+        <TextView
+            android:id="@+id/tvRestaurantTotalNumberReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/jakarta_regular"
+            android:lineSpacingExtra="15sp"
+            tools:text="(0)"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="@+id/rbRestaurantAverageRatingStars"
+            app:layout_constraintStart_toStartOf="@+id/rbRestaurantAverageRatingStars"
+            app:layout_constraintTop_toBottomOf="@+id/rbRestaurantAverageRatingStars" />
+
+        <!-- 1* progressbar indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pbRestaurant_one_stars_rating"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="30dp"
+            android:max="100"
+            android:progress="0"
+            app:indicatorColor="@color/rating_stars_color"
+            app:layout_constraintBottom_toBottomOf="@+id/rbRestaurantAverageRatingStars"
+            app:layout_constraintEnd_toEndOf="@+id/chipGroup"
+            app:layout_constraintStart_toEndOf="@+id/rbRestaurantAverageRatingStars"
+            app:trackColor="@color/rating_progress_trackColor"
+            app:trackCornerRadius="10dp" />
+        <!-- 2* progressbar indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pbRestaurant_two_stars_rating"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:max="100"
+            android:progress="0"
+            app:indicatorColor="@color/rating_stars_color"
+            app:layout_constraintBottom_toTopOf="@+id/pbRestaurant_one_stars_rating"
+            app:layout_constraintEnd_toEndOf="@+id/pbRestaurant_one_stars_rating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/pbRestaurant_one_stars_rating"
+            app:layout_constraintTop_toBottomOf="@+id/pbRestaurant_three_stars_rating"
+            app:trackColor="@color/rating_progress_trackColor"
+            app:trackCornerRadius="10dp" />
+        <!-- 3* progressbar indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pbRestaurant_three_stars_rating"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:max="100"
+            android:progress="0"
+            app:indicatorColor="@color/rating_stars_color"
+            app:layout_constraintBottom_toTopOf="@+id/pbRestaurant_two_stars_rating"
+            app:layout_constraintEnd_toEndOf="@+id/pbRestaurant_two_stars_rating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/pbRestaurant_two_stars_rating"
+            app:layout_constraintTop_toBottomOf="@+id/pbRestaurant_four_stars_rating"
+            app:trackColor="@color/rating_progress_trackColor"
+            app:trackCornerRadius="10dp" />
+        <!-- 4* progressbar indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pbRestaurant_four_stars_rating"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:max="100"
+            android:progress="0"
+            app:indicatorColor="@color/rating_stars_color"
+            app:layout_constraintBottom_toTopOf="@+id/pbRestaurant_three_stars_rating"
+            app:layout_constraintEnd_toEndOf="@+id/pbRestaurant_three_stars_rating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/pbRestaurant_three_stars_rating"
+            app:layout_constraintTop_toBottomOf="@+id/pbRestaurant_five_stars_rating"
+            app:trackColor="@color/rating_progress_trackColor"
+            app:trackCornerRadius="10dp" />
+        <!-- 5* progressbar indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pbRestaurant_five_stars_rating"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:max="100"
+            android:progress="0"
+            app:indicatorColor="@color/rating_stars_color"
+            app:layout_constraintBottom_toTopOf="@+id/pbRestaurant_four_stars_rating"
+            app:layout_constraintEnd_toEndOf="@+id/pbRestaurant_four_stars_rating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/pbRestaurant_four_stars_rating"
+            app:layout_constraintTop_toTopOf="@+id/tvRestaurantAverageRating"
+            app:trackColor="@color/rating_progress_trackColor"
+            app:trackCornerRadius="10dp" />
+
+        <!-- Button to add a review -->
+        <Button
+            android:id="@+id/tbRestaurant_addReview"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/jakarta_bold"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Laisser un avis"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:cornerRadius="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pbRestaurant_one_stars_rating"
+            app:rippleColor="#EAEAEA" />
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
