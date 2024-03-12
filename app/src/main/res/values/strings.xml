@@ -25,7 +25,10 @@
 
     <!--All my added string -->
     <string name="restaurant_total_reviews_format_txt" translatable="false">(%1s)</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bouton_valider_text">Valider</string>
+    <string name="comment_hint_txt">Partagez ici les détails de votre\n expérience</string>
 
 
 </resources>

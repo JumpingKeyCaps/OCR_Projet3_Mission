@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#CF2F2F</color>
-    <color name="rating_gray_color">#666666</color>
+    <color name="gray_color">#666666</color>
     <color name="rating_background_progress_tint">#DADADA</color>
     <color name="rating_stars_color">#FFB800</color>
     <color name="rating_progress_trackColor">#FFEEEEEE</color>

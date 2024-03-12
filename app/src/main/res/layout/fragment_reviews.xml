@@ -7,8 +7,9 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     tools:context=".ui.reviews.ReviewsFragment">
+    <!--[Header]-->
 
-    <!-- first approche  (without Toolbar more close to the sketch)-->
+    <!-- first try (without Toolbar more close to the sketch)-->
     <ImageView
         android:id="@+id/goBackArrow"
         android:layout_width="20dp"
@@ -38,7 +39,7 @@
         app:layout_constraintBottom_toTopOf="@+id/review_coordinatorLayout"
         app:layout_constraintStart_toEndOf="@+id/goBackArrow"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- 2nd try with toolbar   (design plus eloigner que la maquette ) -->
+    <!-- 2nd try with toolbar   (design different de la maquette ) -->
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
         app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
         app:titleTextColor="@color/black" />
 
-
+    <!--[Body]-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/review_coordinatorLayout"
         android:layout_width="match_parent"
@@ -75,7 +76,7 @@
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 app:scrimAnimationDuration="1000">
 
-
+                <!-- [Add a review section] -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,9 +114,9 @@
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/jakarta_semibold"
                         android:gravity="center"
-                        android:text="Manon Garcia"
+                        tools:text="Manon Garcia"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#666666"
+                        android:textColor="@color/gray_color"
                         android:textSize="12sp"
                         android:typeface="normal"
                         app:autoSizeTextType="none"
@@ -130,14 +131,14 @@
                         android:layout_marginBottom="20dp"
                         android:isIndicator="false"
                         android:numStars="5"
-                        android:progressTint="#FFB800"
+                        android:progressTint="@color/rating_stars_color"
                         android:rating="0"
                         android:secondaryProgressTint="@android:color/transparent"
                         android:stepSize="1"
                         app:layout_constraintBottom_toTopOf="@+id/cardView2"
                         app:layout_constraintStart_toStartOf="@+id/textView2" />
 
-                    <!-- bouton valider 1st try-->
+                    <!-- bouton valider 1st try (disable)-->
                     <com.google.android.material.chip.Chip
                         android:visibility="invisible"
                         android:id="@+id/chip_Valider_Comment"
@@ -152,15 +153,15 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:chipBackgroundColor="#CF2F2F"
+                        app:chipBackgroundColor="@color/red"
                         app:chipCornerRadius="10dp"
-                        app:chipStrokeColor="#CF2F2F"
+                        app:chipStrokeColor="@color/red"
                         app:layout_constraintBottom_toBottomOf="@+id/rb_UserRating"
                         app:layout_constraintEnd_toEndOf="@+id/cardView2"
                         app:layout_constraintTop_toTopOf="parent"
                         app:textEndPadding="0dp"
                         app:textStartPadding="0dp" />
-                    <!--bouton 2nd try -->
+                    <!--bouton 2nd try (good) -->
                     <Button
                         android:id="@+id/button_Valider_Comment"
                         android:visibility="visible"
@@ -169,7 +170,7 @@
                         android:layout_marginEnd="9dp"
                         android:fontFamily="@font/jakarta_semibold"
                         android:padding="0dp"
-                        android:text="Valider"
+                        android:text="@string/bouton_valider_text"
                         android:textAlignment="center"
                         android:textSize="12sp"
                         android:typeface="sans"
@@ -181,10 +182,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView2"
                         app:shapeAppearance="?attr/shapeAppearanceCornerMedium" />
 
-
-
-
-                    <!-- saisie commentaire : Version avec cardview + edittext -->
+                    <!-- Saisie du commentaire : Version avec cardview + edittext (good)-->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView2"
                         android:layout_width="match_parent"
@@ -210,16 +208,15 @@
                             android:background="@color/white"
                             android:inputType="textMultiLine"
                             android:fontFamily="@font/jakarta_regular"
-                            android:hint="Partagez ici les détails de votre\n expérience"
-                            android:textColor="#666666"
+                            android:hint="@string/comment_hint_txt"
+                            android:textColor="@color/gray_color"
                             android:textColorHint="#9a9a9a"
                             android:textSize="12sp"
                             android:typeface="sans" />
 
                     </androidx.cardview.widget.CardView>
 
-
-                    <!--saisie commentaire : Version avec OutlinedEditText -->
+                    <!--saisie commentaire : Version avec OutlinedEditText (disabled)-->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/outlinedTextField"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -228,12 +225,10 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
-
                         android:layout_marginBottom="15dp"
-                        android:hint="Partagez ici les details de votre experience"
+                        android:hint="@string/comment_hint_txt"
                         android:visibility="gone"
                         app:boxStrokeColor="?attr/colorPrimary"
-
                         app:boxStrokeErrorColor="?attr/colorError"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp"
@@ -256,11 +251,12 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <!-- [View all reviews section] -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             app:layout_anchorGravity="center"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
