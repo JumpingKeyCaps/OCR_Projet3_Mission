@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,12 @@ import android.widget.Toast;
 import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.databinding.FragmentDetailsBinding;
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
+import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
+import com.openclassrooms.tajmahal.ui.reviews.ReviewsFragment;
+import com.openclassrooms.tajmahal.ui.reviews.ReviewsViewModel;
+import com.openclassrooms.tajmahal.ui.reviews.utility.ReviewsStatsUtils;
+
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -34,8 +41,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class DetailsFragment extends Fragment {
 
     private FragmentDetailsBinding binding;
-
     private DetailsViewModel detailsViewModel;
+    private ReviewsViewModel reviewsViewModel;
 
     /**
      * This method is called when the fragment is first created.
@@ -63,6 +70,8 @@ public class DetailsFragment extends Fragment {
         setupUI(); // Sets up user interface components.
         setupViewModel(); // Prepares the ViewModel for the fragment.
         detailsViewModel.getTajMahalRestaurant().observe(requireActivity(), this::updateUIWithRestaurant); // Observes changes in the restaurant data and updates the UI accordingly.
+        reviewsViewModel.getReviewsSummary(this).observe(requireActivity(), this::updateUIWithReviewsSummary); // observe change in the reviewSummary datas, and update the UI accordingly
+
     }
 
     /**
@@ -81,7 +90,6 @@ public class DetailsFragment extends Fragment {
         return binding.getRoot(); // Returns the root view.
     }
 
-
     /**
      * Sets up the UI-specific properties, such as system UI flags and status bar color.
      */
@@ -94,10 +102,12 @@ public class DetailsFragment extends Fragment {
     }
 
     /**
-     * Initializes the ViewModel for this activity.
+     * Initializes the ViewModels for this fragment.
      */
     private void setupViewModel() {
         detailsViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
+        reviewsViewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
+
     }
 
     /**
@@ -122,6 +132,68 @@ public class DetailsFragment extends Fragment {
         binding.buttonPhone.setOnClickListener(v -> dialPhoneNumber(restaurant.getPhoneNumber()));
         binding.buttonWebsite.setOnClickListener(v -> openBrowser(restaurant.getWebsite()));
     }
+
+
+    /**
+     * Updates the UI components with the provided Reviews Summary data.
+     *
+     * @param reviewsSummary The ReviewsSummary object containing details to be displayed.
+     */
+    private void updateUIWithReviewsSummary(ReviewsSummary reviewsSummary){
+        if(reviewsSummary == null) return;
+
+        final float AVERAGE_RATING = reviewsSummary.getAverageScore();
+        final int TOTAL_REVIEWS_COUNT = reviewsSummary.getTotalReviewsCount();
+
+        // la note numerique moyenne ---
+        binding.tvRestaurantAverageRating.setText(String.valueOf(AVERAGE_RATING));
+
+        //la note sous forme d'etoile ---
+        binding.rbRestaurantAverageRatingStars.setRating(AVERAGE_RATING);
+
+        //le nombre de reviews ---
+        //on utilise la class utilitaire pour formater le nombre total de reviews
+        binding.tvRestaurantTotalNumberReviews.setText(ReviewsStatsUtils.totalNumberOfReviewsStringFormat(this.getContext(),TOTAL_REVIEWS_COUNT));
+
+        // les progressbars ---
+
+        //on fix la val max des progressbars
+        binding.pbRestaurantOneStarsRating.setMax(TOTAL_REVIEWS_COUNT);
+        binding.pbRestaurantTwoStarsRating.setMax(TOTAL_REVIEWS_COUNT);
+        binding.pbRestaurantThreeStarsRating.setMax(TOTAL_REVIEWS_COUNT);
+        binding.pbRestaurantFourStarsRating.setMax(TOTAL_REVIEWS_COUNT);
+        binding.pbRestaurantFiveStarsRating.setMax(TOTAL_REVIEWS_COUNT);
+
+        //on generent notre liste de progress values via notre class utilitaire
+        List<Integer> progressOfRatingsBars = ReviewsStatsUtils.safeProgressRatingBarsValuesListGenerator(reviewsSummary);
+
+        //on MAJ nos progressbars et on les anims
+        binding.pbRestaurantOneStarsRating.setProgress(progressOfRatingsBars.get(0),true);
+        binding.pbRestaurantTwoStarsRating.setProgress(progressOfRatingsBars.get(1),true);
+        binding.pbRestaurantThreeStarsRating.setProgress(progressOfRatingsBars.get(2),true);
+        binding.pbRestaurantFourStarsRating.setProgress(progressOfRatingsBars.get(3),true);
+        binding.pbRestaurantFiveStarsRating.setProgress(progressOfRatingsBars.get(4),true);
+
+        //le boutons pour add un avis ---
+        binding.tbRestaurantAddReview.setOnClickListener(v -> goToReviewsScreen());
+
+    }
+
+    /**
+     *  navigation to Reviews Fragment screen.
+     **/
+    private void goToReviewsScreen(){
+        //todo - navigation vers frag reviews here !
+
+        getParentFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right)
+                .addToBackStack(null)
+                .replace(R.id.container, ReviewsFragment.newInstance())
+                .commit();
+    }
+
+
 
     /**
      * Opens the provided address in Google Maps or shows an error if Google Maps
