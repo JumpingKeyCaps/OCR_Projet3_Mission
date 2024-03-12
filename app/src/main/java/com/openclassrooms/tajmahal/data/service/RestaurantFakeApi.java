@@ -29,7 +29,8 @@ import java.util.List;
  * @see RestaurantApi
  */
 public class RestaurantFakeApi implements RestaurantApi {
-
+    //todo le probleme qui se pose est que Arrays.asList est unmodifiable, rendant l'ajout direct dans cette liste impossible.
+    //todo j'utiliserait donc une copy de cette liste pour effectuer le travail. ---> reviewsWorkingWith
     List<Review> reviews = Arrays.asList(
             new Review("Ranjit Singh", "https://xsgames.co/randomusers/assets/avatars/male/71.jpg", "Service très rapide et nourriture délicieuse, nous mangeons ici chaque week-end, c'est très rapide et savoureux. Continuez ainsi!", 5),
             new Review("Martyna Siddeswara", "https://xsgames.co/randomusers/assets/avatars/female/31.jpg", "Un service excellent et des plats incroyablement savoureux. Nous sommes vraiment satisfaits de notre expérience au restaurant.", 4),
@@ -70,5 +71,23 @@ public class RestaurantFakeApi implements RestaurantApi {
     public List<Review> getReviews() {
         return reviews;
     }
+
+
+    /** Modifiable copy of the reviews list to working with. **/
+    List<Review> reviewsWorkingWith = new ArrayList<>();
+
+    /**
+     * Add a new review to the restaurant.
+     *
+     * This method  add a review to the list of the existing reviews.
+     *
+     *@param index the position where to add the new review.
+     *@param newReview the new Review object to add.
+     */
+    @Override
+    public void addReview(int index, Review newReview){
+        reviewsWorkingWith.add(index,newReview);
+    }
+
 
 }
