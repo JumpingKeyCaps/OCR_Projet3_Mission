@@ -69,7 +69,11 @@ public class RestaurantFakeApi implements RestaurantApi {
      */
     @Override
     public List<Review> getReviews() {
-        return reviews;
+        if(reviewsWorkingWith.isEmpty()){
+            //on copy notre liste unmodifiable pour avoir une liste modifiable de travail
+            reviewsWorkingWith = new ArrayList<>(reviews);
+        }
+        return reviewsWorkingWith;
     }
 
 
