@@ -164,11 +164,11 @@ public class ReviewsFragment extends Fragment {
                 //ajout de la review a notre data layer
                 try{
                     //todo Methode 1:  direct
-              //      ReviewsModel.getReviews().getValue().add(myReview);
+                    ReviewsModel.getReviews().getValue().add(myReview);
                     //todo Methode 2:  asynch
               //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
                     //todo Methode 3: via addReview Methodes (cas le plus proche de la realiter, ou la modif de la liste est envoyer au server)
-                     ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
+                 //    ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
 
                     //maj du recycler via l'adapter
                     reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
@@ -179,6 +179,8 @@ public class ReviewsFragment extends Fragment {
                     Snackbar.make(view, "Une erreur s'est produite, veuillez recommencer s'il vous plaît. ", Snackbar.LENGTH_SHORT).show();
                 }
             }
+            //on clear le focus du edittext du commentaire
+            binding.tvUserComment.clearFocus();
         });
 
         // todo  --- on defini un textwatcher sur le edit text pour verifier la saisie. (????)
