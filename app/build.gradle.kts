@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.openclassrooms.tajmahal"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.openclassrooms.tajmahal"
