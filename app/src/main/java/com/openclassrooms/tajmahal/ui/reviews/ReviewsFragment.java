@@ -161,14 +161,14 @@ public class ReviewsFragment extends Fragment {
                         binding.tvUserComment.getText().toString(),
                         Math.round(binding.rbUserRating.getRating()));
 
-                //ajout de la review a notre data layer
+                //ajout de la review a notre data layer.
                 try{
                     //todo Methode 1:  direct
-                    ReviewsModel.getReviews().getValue().add(myReview);
+              //      ReviewsModel.getReviews().getValue().add(myReview);
                     //todo Methode 2:  asynch
               //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
-                    //todo Methode 3: via addReview Methodes (cas le plus proche de la realiter, ou la modif de la liste est envoyer au server)
-                 //    ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
+                    //todo Methode 3: via addReview Methodes (cas le plus proche de la realiter, on ne modifie pas directement la liste source,mais on envoi au server la new review).
+                     ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
 
                     //maj du recycler via l'adapter
                     reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
