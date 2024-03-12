@@ -50,4 +50,18 @@ public interface RestaurantApi {
      * @return The {@link Restaurant} object containing all the details of the restaurant.
      */
     List<Review> getReviews();
+
+
+
+    /**
+     * add a new review to the restaurant.
+     * <p>
+     * This method will usually be connected to a network call or database query in its
+     * implementing class, add a review to the list of the existing reviews.
+     * </p>
+     * @param index the position where to add the new review.
+     * @param newReview the new Review object to add.
+     */
+    void addReview(int index, Review newReview);
+
 }
