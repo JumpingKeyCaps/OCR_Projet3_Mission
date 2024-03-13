@@ -41,9 +41,12 @@ public class ReviewsFragment extends Fragment {
     private ReviewsViewModel ReviewsModel;
     private ItemReviewAdapter reviewAdapter;
     private UserProfile myUserProfile;
+    final static int COMMENT_MAX_CHAR_ALLOWED = 255;
+
+    //todo Compte utilisateur temporaire -- TO REMOVE FOR THE USER ACCOUNT IMPLEMENTATION
     private static final String USER_NAME = "Manon Garcia";
     private static final String USER_AVATAR_URL = "https://xsgames.co/randomusers/assets/avatars/female/23.jpg";
-    final static int COMMENT_MAX_CHAR_ALLOWED = 255;
+
 
     /**
      * Get a new Instance of the fragment.
@@ -86,9 +89,13 @@ public class ReviewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //on creer un user profil, ceci sera a modifier lors de l'implementation du compte utilisateur
+        //todo USER ACCOUNT TEMPORAIRE-- TO REMOVE FOR THE USER ACCOUNT IMPLEMENTATION
+        // On creer un "fake" user profil , celui ci sera a modifier/supprimer lors de l'implementation du compte utilisateur.
+        // dans un cas ideal il faudrait deplacer cette objet vers un repository dedier, et lui attribuer un viewmodel
+        // et tout le chainage associer (observer/livedata) pour respecter le MVVM.
         myUserProfile = new UserProfile(USER_NAME,USER_AVATAR_URL);
 
+        //on init nos elements
         setupUI();
         setupViewModel();
         setupReviewsList();
