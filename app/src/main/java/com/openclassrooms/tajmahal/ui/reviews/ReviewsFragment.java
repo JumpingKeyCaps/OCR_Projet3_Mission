@@ -143,56 +143,13 @@ public class ReviewsFragment extends Fragment {
         binding.tvUserComment.clearFocus();
 
         // on definie notre listener sur notre bouton valider
-        binding.buttonValiderComment.setOnClickListener(view -> {
-            //on verifie que le message n'est pas vide
-            if(binding.tvUserComment.getText().toString().isEmpty()){  // ----------  on verifi que le commentaire comporte du text
-                binding.buttonValiderComment.setTranslationX(-20f);
-                binding.buttonValiderComment.animate().translationX(0f).setDuration(200).start();
-                Snackbar.make(view, "Oops ! Il semblerait que vous ayez oublié d'écrire un commentaire.", Snackbar.LENGTH_SHORT).show();
-            }else if(binding.rbUserRating.getRating()== 0f){  // ----------  on verifie que la note est mise
-                binding.buttonValiderComment.setTranslationX(-20f);
-                binding.buttonValiderComment.animate().translationX(0f).setDuration(200).start();
-                Snackbar.make(view, "N'oubliez pas de donner une note de 1 à 5 étoiles avec votre avis.", Snackbar.LENGTH_SHORT).show();
-            }else if(binding.tvUserComment.getText().length() > COMMENT_MAX_CHAR_ALLOWED){// ----------  on verifi que le text n'est pas trop long
-                binding.buttonValiderComment.setTranslationX(-20f);
-                binding.buttonValiderComment.animate().translationX(0f).setDuration(200).start();
-                Snackbar.make(view, "Mince ! Votre commentaire semble être un peu trop long.", Snackbar.LENGTH_SHORT).show();
-            }else{
-                //all is ok to submitt reviews
-                // create a new review object
-                final Review myReview = new Review(
-                        myUserProfile.getUserName(),
-                        myUserProfile.getUserAvatarURL(),
-                        binding.tvUserComment.getText().toString(),
-                        Math.round(binding.rbUserRating.getRating()));
+        binding.buttonValiderComment.setOnClickListener(validateClickListener());
 
-                //ajout de la review a notre data layer.
-                try{
-                    //todo Methode 1:  direct via le livedata
-              //      ReviewsModel.getReviews().getValue().add(myReview);
-                    //todo Methode 2:  asynch via le livedata
-              //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
-                    //todo Methode 3: via addReview() methodes en cascades jusque a la data source.
-                     ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
 
-                    //maj du recycler via l'adapter
-                    reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
-                    //on clean le champs de saisie et le rating
-                    binding.rbUserRating.setRating(0f);
-                    binding.tvUserComment.getText().clear();
-                }catch (NullPointerException e){
-                    Snackbar.make(view, "Une erreur s'est produite, veuillez recommencer s'il vous plaît. ", Snackbar.LENGTH_SHORT).show();
-                }
-            }
+        /*
 
-            //on ferme le clavier si il est ouvert
-            hideKeyboard(getActivity());
-            //on clear le focus du edittext du commentaire
-            binding.tvUserComment.clearFocus();
+        todo  --- on defini un TextWatcher sur le edit text pour verifier la saisie. (????)
 
-        });
-
-        // todo  --- on defini un TextWatcher sur le edit text pour verifier la saisie. (????)
         binding.tvUserComment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -203,7 +160,7 @@ public class ReviewsFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) { }
         });
-
+      */
 
     }
 
@@ -211,8 +168,69 @@ public class ReviewsFragment extends Fragment {
      * Initializes the ViewModel for the fragment.
      */
     private void setupViewModel() {
+        //on recupere notre viewmodel via le provider
         ReviewsModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
+    }
 
+
+    /**
+     * OnClickListener to submit user review.
+     *
+     * @return a onClickListener for the validate button
+     */
+    private View.OnClickListener validateClickListener(){
+        return view -> {
+            //on verifie que le message n'est pas vide
+            if(binding.tvUserComment.getText().toString().isEmpty()){  // ----------  on verifi que le commentaire comporte du text
+                buttonErrorAnimation();
+                Snackbar.make(view, R.string.review_error_no_txt_comment, Snackbar.LENGTH_SHORT).show();
+            }else if(binding.rbUserRating.getRating()== 0f){  // ----------  on verifie que la note est mise
+                buttonErrorAnimation();
+                Snackbar.make(view, R.string.review_error_no_rating, Snackbar.LENGTH_SHORT).show();
+            }else if(binding.tvUserComment.getText().length() > COMMENT_MAX_CHAR_ALLOWED){// ----------  on verifi que le text n'est pas trop long
+                buttonErrorAnimation();
+                Snackbar.make(view, R.string.review_error_txt_too_long, Snackbar.LENGTH_SHORT).show();
+            }else{
+                //all is ok to submit reviews
+                // create a new review object
+                final Review myReview = new Review(
+                        myUserProfile.getUserName(),
+                        myUserProfile.getUserAvatarURL(),
+                        binding.tvUserComment.getText().toString(),
+                        Math.round(binding.rbUserRating.getRating()));
+
+                //ajout de la review a notre data layer.
+                try{
+                    //todo Methode 1:  direct via le livedata
+                    //      ReviewsModel.getReviews().getValue().add(myReview);
+                    //todo Methode 2:  asynch via le livedata
+                    //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
+                    //todo Methode 3: via addReview() methodes en cascades jusque a la data source.
+                    ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
+
+                    //maj du recycler via l'adapter
+                    reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
+                    //on clean le champs de saisie et le rating
+                    binding.rbUserRating.setRating(0f);
+                    binding.tvUserComment.getText().clear();
+                }catch (NullPointerException e){
+                    Snackbar.make(view, R.string.review_error_generic, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+            //on ferme le clavier si il est ouvert
+            hideKeyboard(getActivity());
+            //on clear le focus du edittext du commentaire
+            binding.tvUserComment.clearFocus();
+        };
+    }
+
+
+    /**
+     *  Animate validate button when a error happen during review posting.
+     */
+    private void buttonErrorAnimation(){
+        binding.buttonValiderComment.setTranslationX(-20f);
+        binding.buttonValiderComment.animate().translationX(0f).setDuration(200).start();
     }
 
     /**
