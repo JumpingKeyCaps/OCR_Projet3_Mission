@@ -14,7 +14,6 @@ import javax.inject.Singleton;
 /**
  * This is the repository class for managing restaurant reviews. Repositories are responsible
  * for coordinating data operations from data sources such as network APIs, databases, etc.
- *
  * Typically in an Android app built with architecture components, the repository will handle
  * the logic for deciding whether to fetch data from a network source or use data from a local cache.
  *
@@ -35,11 +34,9 @@ public class ReviewsRepository {
     }
 
     /**
-     * Fetches the reviews liste.
-     *
+     * Fetches the reviews list.
      * This method will make a network call using the provided {@link RestaurantApi} instance
      * to fetch all reviews of the restaurant.
-     *
      *
      * @return LiveData holding the list of restaurant reviews.
      */
