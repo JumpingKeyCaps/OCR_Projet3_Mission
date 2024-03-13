@@ -1,8 +1,12 @@
 package com.openclassrooms.tajmahal.ui.reviews;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -18,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.tajmahal.R;
@@ -163,11 +168,11 @@ public class ReviewsFragment extends Fragment {
 
                 //ajout de la review a notre data layer.
                 try{
-                    //todo Methode 1:  direct
+                    //todo Methode 1:  direct via le livedata
               //      ReviewsModel.getReviews().getValue().add(myReview);
-                    //todo Methode 2:  asynch
+                    //todo Methode 2:  asynch via le livedata
               //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
-                    //todo Methode 3: via addReview Methodes (cas le plus proche de la realiter, on ne modifie pas directement la liste source,mais on envoi au server la new review).
+                    //todo Methode 3: via addReview() methodes en cascades jusque a la data source.
                      ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
 
                     //maj du recycler via l'adapter
@@ -179,19 +184,21 @@ public class ReviewsFragment extends Fragment {
                     Snackbar.make(view, "Une erreur s'est produite, veuillez recommencer s'il vous plaît. ", Snackbar.LENGTH_SHORT).show();
                 }
             }
+
+            //on ferme le clavier si il est ouvert
+            hideKeyboard(getActivity());
             //on clear le focus du edittext du commentaire
             binding.tvUserComment.clearFocus();
+
         });
 
-        // todo  --- on defini un textwatcher sur le edit text pour verifier la saisie. (????)
+        // todo  --- on defini un TextWatcher sur le edit text pour verifier la saisie. (????)
         binding.tvUserComment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //   binding.buttonValiderComment.setEnabled(!charSequence.toString().isEmpty());
-
-
             }
             @Override
             public void afterTextChanged(Editable editable) { }
@@ -207,4 +214,24 @@ public class ReviewsFragment extends Fragment {
         ReviewsModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
 
     }
+
+    /**
+     * Hide the keyboard if open
+     * @param activity  an activity reference to allow for system service call.
+     */
+    public static void hideKeyboard(Activity activity) {
+        try {
+            //on recupere le InputMethodemanager
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            //si au moin une vue a le focus actuel (ici notre Edittext)
+            if (activity.getCurrentFocus() != null) {
+                //on utilise hideSoftInputFromWindow() de l'InputMethodemanager pour fermer le clavier via le token de la vue qui a le focus.
+                imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
+        }catch (NullPointerException e){
+
+        }
+    }
+
+
 }
