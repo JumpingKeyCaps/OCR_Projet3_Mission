@@ -1,4 +1,4 @@
-package com.openclassrooms.tajmahal;
+package com.openclassrooms.tajmahal.dataUnitTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import com.openclassrooms.tajmahal.domain.model.Review;
 import java.util.List;
 
 /**
- * ReviewsRepository local unit test class.
+ * Reviews Repository local unit test class.
  *
  */
 public class ReviewsRepositoryUnitTest {
