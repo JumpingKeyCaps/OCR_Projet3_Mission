@@ -85,7 +85,6 @@ public class RestaurantFakeApi implements RestaurantApi {
 
     /**
      * Add a new review to the restaurant.
-     *
      * This method  add a review to the list of the existing reviews.
      *
      *@param index the position where to add the new review.
