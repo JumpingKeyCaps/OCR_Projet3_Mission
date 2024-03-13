@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ import com.openclassrooms.tajmahal.domain.model.Review;
 import com.openclassrooms.tajmahal.domain.model.UserProfile;
 import com.openclassrooms.tajmahal.ui.reviews.adapter.ItemReviewAdapter;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -65,7 +68,7 @@ public class ReviewsFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      * from a previous saved state as given here.
      *
-     * @return
+     * @return the root view layout of the fragment
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -136,7 +139,7 @@ public class ReviewsFragment extends Fragment {
         //le rating de l'user par default
         binding.rbUserRating.setRating(0f);
         //le bouton retour arriere
-        binding.goBackArrow.setOnClickListener(view -> { requireActivity().onBackPressed();});
+        binding.goBackArrow.setOnClickListener(view -> requireActivity().onBackPressed());
         //le nom de l'user
         binding.tvUserName.setText(myUserProfile.getUserName());
         //on clear le focus du edittext du commentaire
@@ -205,8 +208,9 @@ public class ReviewsFragment extends Fragment {
                     //      ReviewsModel.getReviews().getValue().add(myReview);
                     //todo Methode 2:  asynch via le livedata
                     //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
-                    //todo Methode 3: via addReview() methodes en cascades jusque a la data source.
-                    ReviewsModel.addReview(ReviewsModel.getReviews().getValue().size(),myReview);
+                    //todo Methode 3: via addReview() methodes en cascades jusqu'a la data source.
+                    //on utilise Objects.requireNonNull() pour parer un object vide.
+                    ReviewsModel.addReview(Objects.requireNonNull(ReviewsModel.getReviews().getValue()).size(),myReview);
 
                     //maj du recycler via l'adapter
                     reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
@@ -229,6 +233,7 @@ public class ReviewsFragment extends Fragment {
      *  Animate validate button when a error happen during review posting.
      */
     private void buttonErrorAnimation(){
+        binding.buttonValiderComment.animate().cancel(); // on annule l'animation, avant dans lancer une nouvelle
         binding.buttonValiderComment.setTranslationX(-20f);
         binding.buttonValiderComment.animate().translationX(0f).setDuration(200).start();
     }
@@ -247,7 +252,7 @@ public class ReviewsFragment extends Fragment {
                 imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
             }
         }catch (NullPointerException e){
-
+            Log.e("KeyboardBehavior", "hideKeyboard: failed ! no visible keyboard found ");
         }
     }
 
