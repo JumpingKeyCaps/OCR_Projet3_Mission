@@ -284,7 +284,7 @@
             android:progressTint="@color/rating_stars_color"
             android:rating="0"
             android:secondaryProgressTint="@android:color/transparent"
-            android:stepSize="0.5"
+            android:stepSize="0.1"
             app:layout_constraintStart_toStartOf="@+id/tvRestaurantType"
             app:layout_constraintTop_toBottomOf="@+id/tvRestaurantAverageRating" />
 
