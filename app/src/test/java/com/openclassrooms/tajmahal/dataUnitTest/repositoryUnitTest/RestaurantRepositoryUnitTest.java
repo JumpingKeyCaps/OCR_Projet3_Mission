@@ -1,4 +1,4 @@
-package com.openclassrooms.tajmahal.dataUnitTest;
+package com.openclassrooms.tajmahal.dataUnitTest.repositoryUnitTest;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

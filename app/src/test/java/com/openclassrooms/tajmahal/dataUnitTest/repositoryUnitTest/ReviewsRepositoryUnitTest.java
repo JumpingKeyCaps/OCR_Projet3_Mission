@@ -1,4 +1,4 @@
-package com.openclassrooms.tajmahal.dataUnitTest;
+package com.openclassrooms.tajmahal.dataUnitTest.repositoryUnitTest;
 
 import org.junit.Before;
 import org.junit.Test;
