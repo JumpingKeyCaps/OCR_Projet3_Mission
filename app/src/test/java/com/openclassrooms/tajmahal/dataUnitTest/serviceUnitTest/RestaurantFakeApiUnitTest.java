@@ -69,7 +69,7 @@ public class RestaurantFakeApiUnitTest {
         RestaurantFakeApi api = new RestaurantFakeApi();
         Review newReview = new Review("John Doe", "pictureUrl", "Great food!",4);
 
-        api.addReview(0, newReview);
+        api.addReview(newReview);
 
         List<Review> reviews = api.getReviews();
         assertEquals(newReview, reviews.get(0));
@@ -82,7 +82,7 @@ public class RestaurantFakeApiUnitTest {
         RestaurantFakeApi api = new RestaurantFakeApi();
         Review newReview = new Review("John Doe", "pictureUrl", "Great food!",4);
 
-        api.addReview(api.getReviews().size(), newReview);
+        api.addReview(newReview);
 
         List<Review> reviews = api.getReviews();
         assertEquals(newReview, reviews.get(reviews.size() - 1));
