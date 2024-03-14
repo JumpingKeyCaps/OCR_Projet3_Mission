@@ -62,8 +62,8 @@ public class ReviewsViewModelUnitTest {
     @Test
     public void addReview_callsRepository() {
         Review newReview = Mockito.mock(Review.class);
-        reviewsViewModel.addReview(0, newReview);
-        Mockito.verify(reviewsRepository).addReview(0, newReview);
+        reviewsViewModel.addReview(newReview);
+        Mockito.verify(reviewsRepository).addReview(newReview);
     }
 
     /**
