@@ -30,7 +30,6 @@ import com.openclassrooms.tajmahal.domain.model.UserProfile;
 import com.openclassrooms.tajmahal.ui.reviews.adapter.ItemReviewAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -148,26 +147,8 @@ public class ReviewsFragment extends Fragment {
         binding.tvUserName.setText(myUserProfile.getUserName());
         //on clear le focus du edittext du commentaire
         binding.tvUserComment.clearFocus();
-
         // on definie notre listener sur notre bouton valider
         binding.buttonValiderComment.setOnClickListener(validateClickListener());
-
-
-        /*
-
-        todo  --- on defini un TextWatcher sur le edit text pour verifier la saisie. (????)
-
-        binding.tvUserComment.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //   binding.buttonValiderComment.setEnabled(!charSequence.toString().isEmpty());
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-      */
 
     }
 
@@ -208,13 +189,9 @@ public class ReviewsFragment extends Fragment {
 
                 //ajout de la review a notre data layer.
                 try{
-                    //todo Methode 1:  direct via le livedata
-                    //      ReviewsModel.getReviews().getValue().add(myReview);
-                    //todo Methode 2:  asynch via le livedata
-                    //      ReviewsModel.getReviews().postValue(new ArrayList<>(ReviewsModel.getReviews().getValue()).add(myReview));
-                    //todo Methode 3: via addReview() methodes en cascades jusqu'a la data source.
+                    //via addReview() methodes en cascades jusqu'a la data source.
                     //on utilise Objects.requireNonNull() pour parer un object vide.
-                    ReviewsModel.addReview(Objects.requireNonNull(ReviewsModel.getReviews().getValue()).size(),myReview);
+                    ReviewsModel.addReview(myReview);
 
                     //maj du recycler via l'adapter
                     reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
