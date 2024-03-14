@@ -51,10 +51,10 @@ public class ReviewsRepository {
      * This method will usually be connected to a network call or database query in its
      * implementing class, add a review to the list of the existing reviews.
      * </p>
-     *
+     * @param newReview the review to add in the reviews list
      */
-    public void addReview(int index, Review newReview){
-        restaurantApi.addReview(index,newReview);
+    public void addReview(Review newReview){
+        restaurantApi.addReview(newReview);
     }
 
 }

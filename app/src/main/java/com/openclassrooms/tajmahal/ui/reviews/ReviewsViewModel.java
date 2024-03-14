@@ -58,11 +58,10 @@ public class ReviewsViewModel extends ViewModel {
      * This method will usually be connected to a network call or database query in its
      * implementing class, add a review to the list of the existing reviews.
      * </p>
-     * @param index position in list to add review
      * @param newReview the new review to add
      */
-    public void addReview(int index, Review newReview){
-        reviewsRepository.addReview(index,newReview);
+    public void addReview(Review newReview){
+        reviewsRepository.addReview(newReview);
     }
 
 

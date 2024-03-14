@@ -87,12 +87,11 @@ public class RestaurantFakeApi implements RestaurantApi {
      * Add a new review to the restaurant.
      * This method  add a review to the list of the existing reviews.
      *
-     *@param index the position where to add the new review.
      *@param newReview the new Review object to add.
      */
     @Override
-    public void addReview(int index, Review newReview){
-        reviewsWorkingWith.add(index,newReview);
+    public void addReview(Review newReview){
+        reviewsWorkingWith.add(newReview);
     }
 
 
