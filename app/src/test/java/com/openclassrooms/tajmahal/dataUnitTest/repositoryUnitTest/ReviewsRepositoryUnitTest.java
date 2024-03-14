@@ -69,14 +69,13 @@ public class ReviewsRepositoryUnitTest {
     @Test
     public void testAddReview_shouldCallRestaurantApiWithCorrectParameters() {
         // Arrange: generate a review at index 5.
-        int index = 5;
         Review newReview = new Review("John Doe", "UrlAvatar", "Great food!",4);
 
         // Act: add review to the list of reviews
-        reviewsRepository.addReview(index, newReview);
+        reviewsRepository.addReview(newReview);
 
         // Assert: check if review is added.
-        Mockito.verify(mockRestaurantApi).addReview(index, newReview);
+        Mockito.verify(mockRestaurantApi).addReview(newReview);
     }
 
 
