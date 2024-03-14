@@ -25,13 +25,12 @@
 
     <!--All my added string -->
     <string name="restaurant_total_reviews_format_txt" translatable="false">(%1s)</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="bouton_valider_text">Valider</string>
-    <string name="comment_hint_txt">Partagez ici les détails de votre\n expérience.</string>
-    <string name="review_error_txt_too_long">Mince ! Votre commentaire semble être un peu trop long.</string>
-    <string name="review_error_no_txt_comment">Oops ! Il semblerait que vous ayez oublié d\'écrire un commentaire.</string>
-    <string name="review_error_no_rating">N\'oubliez pas de donner une note de 1 à 5 étoiles avec votre avis.</string>
-    <string name="review_error_generic">"Une erreur s'est produite, veuillez recommencer s'il vous plaît. "</string>
 
+    <string name="bouton_valider_text">Validate</string>
+    <string name="comment_hint_txt">Share details of your\n experience here.</string>
+    <string name="review_error_txt_too_long">Thin ! Your comment seems to be a little too long.</string>
+    <string name="review_error_no_txt_comment">Oops ! It looks like you forgot to write a comment.</string>
+    <string name="review_error_no_rating">Don\'t forget to give a 1–5 star rating with your review.</string>
+    <string name="review_error_generic">An error has occurred, please try again.</string>
 
 </resources>

@@ -21,12 +21,12 @@
     <string name="icone_weekday">Icone weekday</string>
     <string name="icone_website">Icone website</string>
     <string name="phone_icon">Phone icon</string>
-    <string name="bouton_valider_text">Validate</string>
-    <string name="comment_hint_txt">Share details of your experience here.</string>
-    <string name="review_error_txt_too_long">Thin ! Your comment seems to be a little too long.</string>
-    <string name="review_error_no_txt_comment">Oops ! It looks like you forgot to write a comment.</string>
-    <string name="review_error_no_rating">Don\'t forget to give a 1-5 star rating with your review.</string>
-    <string name="review_error_generic">An error has occurred, please try again.</string>
 
+    <string name="bouton_valider_text">Valider</string>
+    <string name="comment_hint_txt">Partagez ici les détails de votre\n expérience.</string>
+    <string name="review_error_txt_too_long">Mince ! Votre commentaire semble être un peu trop long.</string>
+    <string name="review_error_no_txt_comment">Oops ! Il semblerait que vous ayez oublié d\'écrire un commentaire.</string>
+    <string name="review_error_no_rating">N\'oubliez pas de donner une note de 1 à 5 étoiles avec votre avis.</string>
+    <string name="review_error_generic">"Une erreur s'est produite, veuillez recommencer s'il vous plaît. "</string>
 
 </resources>
