@@ -7,4 +7,5 @@
     <color name="rating_background_progress_tint">#DADADA</color>
     <color name="rating_stars_color">#FFB800</color>
     <color name="rating_progress_trackColor">#FFEEEEEE</color>
+    <color name="text_hint_default_color">#9a9a9a</color>
 </resources>
