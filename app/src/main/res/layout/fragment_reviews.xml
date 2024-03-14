@@ -177,6 +177,7 @@
                         style="@style/ThemeOverlay.Material3.Button"
                         android:backgroundTint="@color/red"
                         android:enabled="true"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/rb_UserRating"
                         app:layout_constraintEnd_toEndOf="@+id/cardView2"
                         app:layout_constraintTop_toTopOf="@+id/tv_user_name"
