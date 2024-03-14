@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.openclassrooms.tajmahal.data.repository.RestaurantRepository;
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
-import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
 import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
 import com.openclassrooms.tajmahal.ui.restaurant.DetailsFragment;
@@ -23,7 +21,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  * ReviewsViewModel is responsible for preparing and managing the data for the {@link DetailsFragment}.
  * and for the {@link }ReviewsFragment. It communicates with the {@link ReviewsRepository} to fetch reviews details and provides
  * utility methods related to the restaurant reviewing UI.
- *
  * This ViewModel is integrated with Hilt for dependency injection.
  */
 @HiltViewModel
@@ -95,7 +92,7 @@ public class ReviewsViewModel extends ViewModel {
      * Update Review summary LiveData .
      * @param reviewsSummary reviews summary objet to update
      */
-    private void updateReviewsSummary(ReviewsSummary reviewsSummary) {
+    public void updateReviewsSummary(ReviewsSummary reviewsSummary) {
         reviewsSummaryLiveData.setValue(reviewsSummary);
     }
 }
