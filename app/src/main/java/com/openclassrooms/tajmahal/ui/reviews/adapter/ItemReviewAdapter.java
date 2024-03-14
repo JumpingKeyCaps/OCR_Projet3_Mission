@@ -37,7 +37,7 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
      *               an adapter position.
      * @param viewType The view type of the new View.
      *
-     * @return
+     * @return the ItemReviewViewHolder to use to bind the list.
      */
     @NonNull
     @Override
