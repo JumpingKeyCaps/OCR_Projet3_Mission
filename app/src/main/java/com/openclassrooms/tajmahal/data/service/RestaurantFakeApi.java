@@ -1,5 +1,7 @@
 package com.openclassrooms.tajmahal.data.service;
 
+import android.support.annotation.NonNull;
+
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
 
@@ -90,7 +92,7 @@ public class RestaurantFakeApi implements RestaurantApi {
      *@param newReview the new Review object to add.
      */
     @Override
-    public void addReview(Review newReview){
+    public void addReview(@NonNull Review newReview){
         reviewsWorkingWith.add(newReview);
     }
 
