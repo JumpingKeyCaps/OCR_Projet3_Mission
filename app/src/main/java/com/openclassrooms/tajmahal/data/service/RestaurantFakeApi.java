@@ -30,7 +30,7 @@ import java.util.List;
  * @see Restaurant
  * @see RestaurantApi
  */
-public class RestaurantFakeApi implements RestaurantApi {
+public class RestaurantFakeApi implements RestaurantApi  {
     //todo le probleme qui se pose est que Arrays.asList est unmodifiable, rendant l'ajout direct dans cette liste impossible.
     //todo j'utiliserait donc une copy de cette liste pour effectuer le travail. ---> reviewsWorkingWith
     List<Review> reviews = Arrays.asList(
@@ -43,6 +43,7 @@ public class RestaurantFakeApi implements RestaurantApi {
             new Review("Alexa Warama", "https://xsgames.co/randomusers/assets/avatars/female/11.jpg", "Un service excellent et des plats incroyablement savoureux. Nous sommes vraiment satisfaits de notre expérience au restaurant.", 5)
 
             );
+
 
 
     /**
