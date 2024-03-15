@@ -98,7 +98,6 @@ public class ReviewsFragment extends Fragment {
         myUserProfile = new UserProfile(USER_NAME,USER_AVATAR_URL);
 
         //on init nos elements
-        setupUI();
         setupViewModel();
         setupReviewsList();
         setupAddReviewUI();
@@ -108,16 +107,7 @@ public class ReviewsFragment extends Fragment {
         });
     }
 
-    /**
-     *  Setup the global UI settings like windows FLAGS and StatusBar.
-     */
-    private void setupUI() {
-        Window window = requireActivity().getWindow();
-        window.getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        );
-        window.setStatusBarColor(Color.TRANSPARENT);
-    }
+
 
     /**
      *  Setup the Recyclerview to display the reviews.
