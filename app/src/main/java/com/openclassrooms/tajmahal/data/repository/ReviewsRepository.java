@@ -1,5 +1,7 @@
 package com.openclassrooms.tajmahal.data.repository;
 
+import android.support.annotation.NonNull;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -53,7 +55,7 @@ public class ReviewsRepository {
      * </p>
      * @param newReview the review to add in the reviews list
      */
-    public void addReview(Review newReview){
+    public void addReview(@NonNull Review newReview){
         restaurantApi.addReview(newReview);
     }
 
