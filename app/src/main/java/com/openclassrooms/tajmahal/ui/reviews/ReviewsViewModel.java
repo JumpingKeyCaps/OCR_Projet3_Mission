@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
+import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.EmptyCommentaryException;
+import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
+import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.TooLongCommentaryException;
 import com.openclassrooms.tajmahal.ui.restaurant.DetailsFragment;
 
 import java.util.List;
@@ -24,7 +27,7 @@ public class ReviewsViewModel extends ViewModel {
 
     private final ReviewsRepository reviewsRepository;
 
-
+    final private static int COMMENT_MAX_CHAR_ALLOWED = 255;
     /**
      * Constructor that Hilt will use to create an instance of the ViewModel.
      *
@@ -54,8 +57,18 @@ public class ReviewsViewModel extends ViewModel {
      * </p>
      * @param newReview the new review to add
      */
-    public void addReview(Review newReview){
-        reviewsRepository.addReview(newReview);
+    public void addReview(Review newReview) throws EmptyCommentaryException, EmptyRatingException, TooLongCommentaryException {
+        //on verifie que le message n'est pas vide
+        if(newReview.getComment().isEmpty()){  // ----------  on verifi que le commentaire comporte du text
+            throw new EmptyCommentaryException();
+        }else if(newReview.getRate() == 0f){  // ----------  on verifie que la note est mise
+            throw new EmptyRatingException();
+        }else if(newReview.getComment().length() > COMMENT_MAX_CHAR_ALLOWED){// ----------  on verifi que le text n'est pas trop long
+            throw new TooLongCommentaryException();
+        }else{
+            reviewsRepository.addReview(newReview);
+        }
+
     }
 
 
