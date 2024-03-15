@@ -3,4 +3,6 @@
     <!-- Round app icon can take all of default space -->
     <dimen name="splash_screen_icon_size">48dp</dimen>
     <dimen name="rating_txt_size">24sp</dimen>
+    <dimen name="name_text_size">12sp</dimen>
+    <dimen name="commentary_text_size">11sp</dimen>
 </resources>

@@ -8,4 +8,5 @@
     <color name="rating_stars_color">#FFB800</color>
     <color name="rating_progress_trackColor">#FFEEEEEE</color>
     <color name="text_hint_default_color">#9a9a9a</color>
+    <color name="itemview_separator_color">#dadada</color>
 </resources>
