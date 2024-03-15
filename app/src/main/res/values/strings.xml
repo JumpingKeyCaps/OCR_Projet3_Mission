@@ -33,5 +33,6 @@
     <string name="review_error_no_rating">Don\'t forget to give a 1–5 star rating with your review.</string>
     <string name="review_error_generic">An error has occurred, please try again.</string>
     <string name="content_description_avatar">the avatar of the review creator.</string>
+    <string name="reviews_frag_title">Taj Mahal</string>
 
 </resources>

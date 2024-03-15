@@ -5,4 +5,5 @@
     <dimen name="rating_txt_size">24sp</dimen>
     <dimen name="name_text_size">12sp</dimen>
     <dimen name="commentary_text_size">11sp</dimen>
+    <dimen name="fragment_title_text_size">18sp</dimen>
 </resources>
