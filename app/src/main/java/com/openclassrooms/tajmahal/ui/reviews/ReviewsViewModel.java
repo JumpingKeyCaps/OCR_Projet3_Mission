@@ -1,15 +1,11 @@
 package com.openclassrooms.tajmahal.ui.reviews;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
 import com.openclassrooms.tajmahal.domain.model.Review;
-import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
 import com.openclassrooms.tajmahal.ui.restaurant.DetailsFragment;
-import com.openclassrooms.tajmahal.ui.reviews.utility.ReviewsStatsUtils;
 
 import java.util.List;
 
@@ -27,8 +23,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class ReviewsViewModel extends ViewModel {
 
     private final ReviewsRepository reviewsRepository;
-
-    final private MutableLiveData<ReviewsSummary> reviewsSummaryLiveData = new MutableLiveData<>();
 
 
     /**
@@ -65,33 +59,9 @@ public class ReviewsViewModel extends ViewModel {
     }
 
 
-    /**
-     * Fetches the Reviews summary .
-     * @param lifecycleOwner le cycle owner
-     * @return LiveData object containing an objet of Reviews Summary.
-     */
-    public LiveData<ReviewsSummary> getReviewsSummary(LifecycleOwner lifecycleOwner) {
 
-        reviewsRepository.getReviews().observe( lifecycleOwner, reviews -> {
-            // on creer notre objet ReviewsSummary via nos methods utilitaires et la list de reviews observer.
-            final ReviewsSummary reviewsSummary = new ReviewsSummary(
-                    ReviewsStatsUtils.calculateAverageRating(reviews),
-                    reviews.size(),
-                    ReviewsStatsUtils.getReviewCountByRating(reviews));
-            // on update le live data associer si et seulement si les data on changer(upgrade efficiency si ViewModel est souvent observer) ou sont null.
-            if(reviewsSummaryLiveData.getValue() == null || !reviewsSummary.equals(reviewsSummaryLiveData.getValue())){
-                //on call l'update du live data via une methode dedier pour faciliter les tests/ et respecter le SRP
-                updateReviewsSummary(reviewsSummary);
-            }
-        });
 
-        return reviewsSummaryLiveData;
-    }
-    /**
-     * Update Review summary LiveData .
-     * @param reviewsSummary reviews summary objet to update
-     */
-    public void updateReviewsSummary(ReviewsSummary reviewsSummary) {
-        reviewsSummaryLiveData.setValue(reviewsSummary);
-    }
+
+
+
 }
