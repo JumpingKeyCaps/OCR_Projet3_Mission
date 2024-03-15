@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder>  {
 
-    private final List<Review> itemsReview;
+    private  List<Review> itemsReview;
 
     /**
      * Constructor to get an instance of this adapter.
@@ -84,6 +84,13 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
         return itemsReview.size();
     }
 
-
+    /**
+     * Update the reviewsList of the adapter.
+     *
+     * @param itemsReview the list to update by
+     */
+    public void UpdateReviewsList(List<Review> itemsReview){
+        this.itemsReview = itemsReview;
+    }
 
 }
