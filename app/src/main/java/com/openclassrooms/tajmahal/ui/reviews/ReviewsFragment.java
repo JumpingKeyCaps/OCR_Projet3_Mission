@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,8 @@ import com.openclassrooms.tajmahal.domain.model.UserProfile;
 import com.openclassrooms.tajmahal.ui.reviews.adapter.ItemReviewAdapter;
 import com.squareup.picasso.Picasso;
 
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -120,11 +123,15 @@ public class ReviewsFragment extends Fragment {
      *  Setup the Recyclerview to display the reviews.
      */
     private void setupReviewsList(){
+        //todo views dividers --
+       // binding.rvReviews.addItemDecoration(new DividerItemDecoration(requireActivity().getApplicationContext(),DividerItemDecoration.VERTICAL));
+
         reviewAdapter = new ItemReviewAdapter(ReviewsModel.getReviews().getValue());
         //on ajout notre layout manager : vertical avec l'affichage de la liste inverser.
         LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,true);
         binding.rvReviews.setLayoutManager(reviewsLayoutManager);
         binding.rvReviews.setAdapter(reviewAdapter);
+
     }
 
     /**
