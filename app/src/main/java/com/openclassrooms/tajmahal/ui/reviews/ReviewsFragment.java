@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,19 +18,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.databinding.FragmentReviewsBinding;
+import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.EmptyCommentaryException;
+import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
+import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.TooLongCommentaryException;
 import com.openclassrooms.tajmahal.domain.model.UserProfile;
 import com.openclassrooms.tajmahal.ui.reviews.adapter.ItemReviewAdapter;
 import com.squareup.picasso.Picasso;
 
-
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -40,10 +38,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ReviewsFragment extends Fragment {
 
     private FragmentReviewsBinding binding;
-    private ReviewsViewModel ReviewsModel;
+    private ReviewsViewModel reviewsModel;
     private ItemReviewAdapter reviewAdapter;
     private UserProfile myUserProfile;
-    final static int COMMENT_MAX_CHAR_ALLOWED = 255;
 
     //todo Compte utilisateur temporaire -- TO REMOVE FOR THE USER ACCOUNT IMPLEMENTATION
     private static final String USER_NAME = "Manon Garcia";
@@ -102,8 +99,8 @@ public class ReviewsFragment extends Fragment {
         setupReviewsList();
         setupAddReviewUI();
         //on observe notre Livedata de la liste des reviews.
-        ReviewsModel.getReviews().observe(requireActivity(), items -> {
-            reviewAdapter.notifyDataSetChanged(); // on Maj notre adapter que la list a changer
+        reviewsModel.getReviews().observe(getViewLifecycleOwner(), items -> {
+            reviewAdapter.UpdateReviewsList(items); // on Maj notre adapter que la list a changer
         });
     }
 
@@ -116,7 +113,7 @@ public class ReviewsFragment extends Fragment {
         //todo views dividers --
        // binding.rvReviews.addItemDecoration(new DividerItemDecoration(requireActivity().getApplicationContext(),DividerItemDecoration.VERTICAL));
 
-        reviewAdapter = new ItemReviewAdapter(ReviewsModel.getReviews().getValue());
+        reviewAdapter = new ItemReviewAdapter(reviewsModel.getReviews().getValue());
         //on ajout notre layout manager : vertical avec l'affichage de la liste inverser.
         LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,true);
         binding.rvReviews.setLayoutManager(reviewsLayoutManager);
@@ -154,7 +151,7 @@ public class ReviewsFragment extends Fragment {
      */
     private void setupViewModel() {
         //on recupere notre viewmodel via le provider
-        ReviewsModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
+        reviewsModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
     }
 
 
@@ -165,45 +162,36 @@ public class ReviewsFragment extends Fragment {
      */
     private View.OnClickListener validateClickListener(){
         return view -> {
-            //on verifie que le message n'est pas vide
-            if(binding.tvUserComment.getText().toString().isEmpty()){  // ----------  on verifi que le commentaire comporte du text
+            try{
+                //via addReview() methodes en cascades jusqu'a la data source.
+                reviewsModel.addReview(new Review(myUserProfile.getUserName(),myUserProfile.getUserAvatarURL(),binding.tvUserComment.getText().toString(),Math.round(binding.rbUserRating.getRating())));
+                //maj du recycler via l'adapter
+                reviewAdapter.notifyItemInserted(reviewsModel.getReviews().getValue().size());
+                //on clean le champs de saisie et le rating
+                binding.rbUserRating.setRating(0f);
+                binding.tvUserComment.getText().clear();
+            }catch (Exception e){
                 buttonErrorAnimation();
-                Snackbar.make(view, R.string.review_error_no_txt_comment, Snackbar.LENGTH_SHORT).show();
-            }else if(binding.rbUserRating.getRating()== 0f){  // ----------  on verifie que la note est mise
-                buttonErrorAnimation();
-                Snackbar.make(view, R.string.review_error_no_rating, Snackbar.LENGTH_SHORT).show();
-            }else if(binding.tvUserComment.getText().length() > COMMENT_MAX_CHAR_ALLOWED){// ----------  on verifi que le text n'est pas trop long
-                buttonErrorAnimation();
-                Snackbar.make(view, R.string.review_error_txt_too_long, Snackbar.LENGTH_SHORT).show();
-            }else{
-                //all is ok to submit reviews
-                // create a new review object
-                final Review myReview = new Review(
-                        myUserProfile.getUserName(),
-                        myUserProfile.getUserAvatarURL(),
-                        binding.tvUserComment.getText().toString(),
-                        Math.round(binding.rbUserRating.getRating()));
-
-                //ajout de la review a notre data layer.
-                try{
-                    //via addReview() methodes en cascades jusqu'a la data source.
-                    //on utilise Objects.requireNonNull() pour parer un object vide.
-                    ReviewsModel.addReview(myReview);
-
-                    //maj du recycler via l'adapter
-                    reviewAdapter.notifyItemInserted(ReviewsModel.getReviews().getValue().size());
-                    //on clean le champs de saisie et le rating
-                    binding.rbUserRating.setRating(0f);
-                    binding.tvUserComment.getText().clear();
-                }catch (NullPointerException e){
-                    Snackbar.make(view, R.string.review_error_generic, Snackbar.LENGTH_SHORT).show();
-                }
+                Snackbar.make(view,getReviewErrorMessage(e) , Snackbar.LENGTH_SHORT).show();
             }
             //on ferme le clavier si il est ouvert
             hideKeyboard(getActivity());
             //on clear le focus du edittext du commentaire
             binding.tvUserComment.clearFocus();
+
         };
+    }
+
+    private int getReviewErrorMessage(Exception e){
+        if (e instanceof EmptyCommentaryException) {
+            return R.string.review_error_no_txt_comment;
+        } else if (e instanceof TooLongCommentaryException) {
+            return R.string.review_error_txt_too_long;
+        } else if (e instanceof EmptyRatingException) {
+            return R.string.review_error_no_rating;
+        } else {
+            return R.string.review_error_generic; // Generic error message for unexpected exceptions
+        }
     }
 
 
