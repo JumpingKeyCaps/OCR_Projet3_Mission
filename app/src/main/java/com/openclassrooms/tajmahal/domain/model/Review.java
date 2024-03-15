@@ -1,5 +1,6 @@
 package com.openclassrooms.tajmahal.domain.model;
 
+
 import java.util.Objects;
 
 
@@ -9,6 +10,8 @@ import java.util.Objects;
  * their profile picture, the comment they left, and the rating they gave.
  */
 public class Review {
+
+
 
     /** The name of the user who left the review. */
     private String username;
@@ -30,7 +33,7 @@ public class Review {
      * @param comment  the feedback or comment from the user
      * @param rate     the rating given by the user
      */
-    public Review(String username, String picture, String comment, int rate) {
+    public Review(String username, String picture, String comment, int rate){
         this.username = username;
         this.picture = picture;
         this.comment = comment;
