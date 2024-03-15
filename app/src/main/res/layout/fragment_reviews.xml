@@ -9,7 +9,7 @@
     tools:context=".ui.reviews.ReviewsFragment">
     <!--[Header]-->
 
-    <!-- first try (without Toolbar more close to the sketch)-->
+    <!-- (without Toolbar more close to the sketch)-->
     <ImageView
         android:id="@+id/goBackArrow"
         android:layout_width="20dp"
@@ -31,14 +31,15 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/jakarta_bold"
         android:gravity="center"
-        android:text="Taj Mahal"
+        android:text="@string/reviews_frag_title"
         android:textAlignment="center"
-        android:textColor="#333333"
-        android:textSize="18sp"
+        android:textColor="@color/fragment_title_color"
+        android:textSize="@dimen/fragment_title_text_size"
         android:typeface="sans"
         app:layout_constraintBottom_toTopOf="@+id/review_coordinatorLayout"
         app:layout_constraintStart_toEndOf="@+id/goBackArrow"
         app:layout_constraintTop_toTopOf="parent" />
+
     <!-- 2nd try with toolbar   (design different de la maquette ) -->
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -117,7 +118,7 @@
                         tools:text="Manon Garcia"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/gray_color"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/name_text_size"
                         android:typeface="normal"
                         app:autoSizeTextType="none"
                         app:layout_constraintBottom_toTopOf="@+id/rb_UserRating"
@@ -138,50 +139,28 @@
                         app:layout_constraintBottom_toTopOf="@+id/cardView2"
                         app:layout_constraintStart_toStartOf="@+id/tv_user_name" />
 
-                    <!-- bouton valider 1st try (disable)-->
-                    <com.google.android.material.chip.Chip
-                        android:visibility="gone"
-                        android:id="@+id/chip_Valider_Comment"
-                        style="@style/Widget.Material3.Chip.Suggestion"
-                        android:layout_width="73dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="10dp"
-                        android:minWidth="40dp"
-                        android:text="Valider"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:chipBackgroundColor="@color/red"
-                        app:chipCornerRadius="10dp"
-                        app:chipStrokeColor="@color/red"
-                        app:layout_constraintBottom_toBottomOf="@+id/rb_UserRating"
-                        app:layout_constraintEnd_toEndOf="@+id/cardView2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:textEndPadding="0dp"
-                        app:textStartPadding="0dp" />
-                    <!--bouton 2nd try (good) -->
+                    <!--bouton valider -->
                     <Button
                         android:id="@+id/button_Valider_Comment"
-                        android:visibility="visible"
+                        style="@style/ThemeOverlay.Material3.Button"
                         android:layout_width="74dp"
                         android:layout_height="37dp"
                         android:layout_marginEnd="9dp"
+                        android:backgroundTint="@color/red"
+                        android:enabled="true"
                         android:fontFamily="@font/jakarta_semibold"
                         android:padding="0dp"
                         android:text="@string/bouton_valider_text"
                         android:textAlignment="center"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         android:typeface="sans"
-                        style="@style/ThemeOverlay.Material3.Button"
-                        android:backgroundTint="@color/red"
-                        android:enabled="true"
-                        android:textColor="@color/white"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/rb_UserRating"
                         app:layout_constraintEnd_toEndOf="@+id/cardView2"
                         app:layout_constraintTop_toTopOf="@+id/tv_user_name"
-                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium" />
+                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                     <!-- Saisie du commentaire : Version avec cardview + edittext (good)-->
                     <androidx.cardview.widget.CardView
@@ -207,13 +186,14 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="13dp"
                             android:background="@color/white"
-                            android:inputType="textMultiLine"
                             android:fontFamily="@font/jakarta_regular"
                             android:hint="@string/comment_hint_txt"
+                            android:inputType="textMultiLine"
                             android:textColor="@color/gray_color"
                             android:textColorHint="@color/text_hint_default_color"
                             android:textSize="12sp"
-                            android:typeface="sans" />
+                            android:typeface="sans"
+                            tools:ignore="TouchTargetSizeCheck" />
 
                     </androidx.cardview.widget.CardView>
 
