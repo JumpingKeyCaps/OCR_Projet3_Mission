@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
+import com.openclassrooms.tajmahal.domain.model.UserProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,7 +86,6 @@ public class RestaurantFakeApi implements RestaurantApi  {
 
     /** Modifiable copy of the reviews list to working with. **/
     List<Review> reviewsWorkingWith = new ArrayList<>();
-
     /**
      * Add a new review to the restaurant.
      * This method  add a review to the list of the existing reviews.
@@ -95,6 +95,23 @@ public class RestaurantFakeApi implements RestaurantApi  {
     @Override
     public void addReview(@NonNull Review newReview){
         reviewsWorkingWith.add(newReview);
+    }
+
+
+
+    /**
+     * User profile simulate datas
+     */
+    private static final String USER_NAME = "Manon Garcia";
+    private static final String USER_AVATAR_URL = "https://xsgames.co/randomusers/assets/avatars/female/23.jpg";
+
+    /**
+     * Retrieves the user profile.
+     * @return an UserProfile object.
+     */
+    @Override
+    public UserProfile getUserProfile(){
+        return new UserProfile(USER_NAME,USER_AVATAR_URL);
     }
 
 
