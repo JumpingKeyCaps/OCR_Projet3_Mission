@@ -5,7 +5,6 @@ import java.util.Objects;
 /**
  * Represent the current user of the app profile.
  * This class encapsulates all data of the user.
- * ( ---/!\ This class should be modified when user account will be implemented /!\--- )
  */
 public class UserProfile {
     /** The name of the user */
@@ -46,7 +45,6 @@ public class UserProfile {
         this.userName = userName;
     }
 
-
     /**
      * Return the url of the user avatar.
      *
@@ -82,6 +80,7 @@ public class UserProfile {
         UserProfile that = (UserProfile) o;
         return Objects.equals(userName, that.userName) && Objects.equals(userAvatarURL, that.userAvatarURL);
     }
+
     /**
      * Generates a hash code for this user profile based on its fields.
      *
