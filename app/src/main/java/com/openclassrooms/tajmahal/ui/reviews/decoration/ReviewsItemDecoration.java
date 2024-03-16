@@ -1,4 +1,4 @@
-package com.openclassrooms.tajmahal.ui.reviews;
+package com.openclassrooms.tajmahal.ui.reviews.decoration;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
