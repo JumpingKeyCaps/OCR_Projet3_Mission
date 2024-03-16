@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
+import com.openclassrooms.tajmahal.data.repository.UserProfileRepository;
+import com.openclassrooms.tajmahal.domain.model.UserProfile;
 import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyCommentaryException;
 import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
@@ -26,6 +28,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class ReviewsViewModel extends ViewModel {
 
     private final ReviewsRepository reviewsRepository;
+    private final UserProfileRepository userProfileRepository;
 
     final private static int COMMENT_MAX_CHAR_ALLOWED = 255;
     /**
@@ -34,9 +37,9 @@ public class ReviewsViewModel extends ViewModel {
      * @param reviewsRepository The repository which will provide reviews data.
      */
     @Inject
-    public ReviewsViewModel(ReviewsRepository reviewsRepository) {
+    public ReviewsViewModel(ReviewsRepository reviewsRepository,UserProfileRepository userProfileRepository) {
         this.reviewsRepository = reviewsRepository;
-
+        this.userProfileRepository = userProfileRepository;
     }
 
     /**
@@ -73,7 +76,14 @@ public class ReviewsViewModel extends ViewModel {
 
 
 
-
+    /**
+     * Fetches the details of the user profile.
+     *
+     * @return LiveData object containing the user profile object.
+     */
+    public LiveData<UserProfile> getUserProfile() {
+        return userProfileRepository.getUserProfile();
+    }
 
 
 
