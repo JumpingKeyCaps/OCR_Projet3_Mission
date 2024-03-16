@@ -34,6 +34,11 @@ import java.util.List;
 public class RestaurantFakeApi implements RestaurantApi  {
     //todo le probleme qui se pose est que Arrays.asList est unmodifiable, rendant l'ajout direct dans cette liste impossible.
     //todo j'utiliserait donc une copy de cette liste pour effectuer le travail. ---> reviewsWorkingWith
+    /**
+     * Simulated list of reviews (original source code)
+     * /!\ The problem is that the use of Arrays.asList, result to an unmodifiable Array, making direct addition to this list impossible. /!\
+     *  -> I will use an editable copy of the reviews list to work through the application.
+     */
     List<Review> reviews = Arrays.asList(
             new Review("Ranjit Singh", "https://xsgames.co/randomusers/assets/avatars/male/71.jpg", "Service très rapide et nourriture délicieuse, nous mangeons ici chaque week-end, c'est très rapide et savoureux. Continuez ainsi!", 5),
             new Review("Martyna Siddeswara", "https://xsgames.co/randomusers/assets/avatars/female/31.jpg", "Un service excellent et des plats incroyablement savoureux. Nous sommes vraiment satisfaits de notre expérience au restaurant.", 4),
@@ -44,7 +49,8 @@ public class RestaurantFakeApi implements RestaurantApi  {
             new Review("Alexa Warama", "https://xsgames.co/randomusers/assets/avatars/female/11.jpg", "Un service excellent et des plats incroyablement savoureux. Nous sommes vraiment satisfaits de notre expérience au restaurant.", 5)
 
             );
-
+    /** Modifiable copy of the reviews list to working with. **/
+    List<Review> reviewsWorkingWith = new ArrayList<>();
 
 
     /**
@@ -68,29 +74,29 @@ public class RestaurantFakeApi implements RestaurantApi  {
     /**
      * Retrieves a hard-coded {@link Review} object for the "Taj Mahal".
      * <p>
-     * This method simulates an API call by immediately returning a Review list
-     * with pre-defined attributes.
+     * This method simulates an API call by immediately returning a modifiable copy
+     * of the unmodifiable original reviews list with pre-defined attributes.
      * </p>
      *
-     * @return The hard-coded list {@link Review} for the "Taj Mahal".
+     * @return The editable copy of the hard-coded list {@link Review} for the "Taj Mahal".
      */
     @Override
     public List<Review> getReviews() {
+        //initial list copy
         if(reviewsWorkingWith.isEmpty()){
-            //on copy notre liste unmodifiable pour avoir une liste modifiable de travail
+            //I copy the unmodifiable list to have a modifiable working list.
             reviewsWorkingWith = new ArrayList<>(reviews);
         }
         return reviewsWorkingWith;
     }
 
 
-    /** Modifiable copy of the reviews list to working with. **/
-    List<Review> reviewsWorkingWith = new ArrayList<>();
+
     /**
-     * Add a new review to the restaurant.
-     * This method  add a review to the list of the existing reviews.
+     * Add a new review to the restaurant reviews list.
+     * This method add a review to the list of the existing reviews.
      *
-     *@param newReview the new Review object to add.
+     *@param newReview the new {@link Review} object to add into the reviews list.
      */
     @Override
     public void addReview(@NonNull Review newReview){
@@ -100,14 +106,14 @@ public class RestaurantFakeApi implements RestaurantApi  {
 
 
     /**
-     * User profile simulate datas
+     * User profile simulated data.
      */
     private static final String USER_NAME = "Manon Garcia";
     private static final String USER_AVATAR_URL = "https://xsgames.co/randomusers/assets/avatars/female/23.jpg";
 
     /**
-     * Retrieves the user profile.
-     * @return an UserProfile object.
+     * Retrieves the user profile data  .
+     * @return an {@link UserProfile}object.
      */
     @Override
     public UserProfile getUserProfile(){
