@@ -10,4 +10,5 @@
     <color name="text_hint_default_color">#9a9a9a</color>
     <color name="itemview_separator_color">#dadada</color>
     <color name="fragment_title_color">#333333</color>
+    <color name="translucent_color">#00ffffff</color>
 </resources>
