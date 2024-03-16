@@ -33,7 +33,7 @@
     <string name="review_error_no_rating">Don\'t forget to give a 1–5 star rating with your review.</string>
     <string name="review_error_generic">An error has occurred, please try again.</string>
     <string name="reviews_frag_title">Taj Mahal</string>
-    <string name="content_description_avatar">The avatar of the review creator.</string>
+    <string name="contentDescription_avatar">The avatar of the review creator.</string>
     <string name="contentDescription_backArrow">An arrow to return to the previous screen.</string>
     <string name="contentDescription_user_avatar">A picture of the current user of the app.</string>
     <string name="leave_review_button_txt">Laisser un avis</string>
