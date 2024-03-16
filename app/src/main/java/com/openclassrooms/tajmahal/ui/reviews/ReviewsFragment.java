@@ -33,6 +33,8 @@ import com.openclassrooms.tajmahal.ui.reviews.adapter.ItemReviewAdapter;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -41,11 +43,6 @@ public class ReviewsFragment extends Fragment {
     private FragmentReviewsBinding binding;
     private ReviewsViewModel reviewsModel;
     private ItemReviewAdapter reviewAdapter;
-    private UserProfile myUserProfile;
-
-    //todo Compte utilisateur temporaire -- TO REMOVE FOR THE USER ACCOUNT IMPLEMENTATION
-    private static final String USER_NAME = "Manon Garcia";
-    private static final String USER_AVATAR_URL = "https://xsgames.co/randomusers/assets/avatars/female/23.jpg";
 
 
     /**
@@ -88,24 +85,24 @@ public class ReviewsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //todo USER ACCOUNT TEMPORAIRE-- TO REMOVE FOR THE USER ACCOUNT IMPLEMENTATION
-        // On creer un "fake" user profil , celui ci sera a modifier/supprimer lors de l'implementation du compte utilisateur.
-        // dans un cas ideal il faudrait deplacer cette objet vers un repository dedier, et lui attribuer un viewmodel
-        // et tout le chainage associer (observer/livedata) pour respecter le MVVM.
-        myUserProfile = new UserProfile(USER_NAME,USER_AVATAR_URL);
-
         //on init nos elements
         setupViewModel();
         setupReviewsList();
-        setupAddReviewUI();
         //on observe notre Livedata de la liste des reviews.
         reviewsModel.getReviews().observe(getViewLifecycleOwner(), items -> {
             reviewAdapter.UpdateReviewsList(items); // on Maj notre adapter que la list a changer
         });
+        //on observe le LiveData du profile user
+        reviewsModel.getUserProfile().observe(getViewLifecycleOwner(), this::setupAddReviewUI);
     }
 
-
+    /**
+     * Initializes the ViewModel for the fragment.
+     */
+    private void setupViewModel() {
+        //on recupere notre viewmodel via le provider
+        reviewsModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
+    }
 
     /**
      *  Setup the Recyclerview to display the reviews.
@@ -126,9 +123,8 @@ public class ReviewsFragment extends Fragment {
     /**
      *  Setup the UI of the user rating/comment feature.
      */
-    private void setupAddReviewUI(){
-        //lavatar de luser
-        //todo to modifie later -----
+    private void setupAddReviewUI(UserProfile myUserProfile){
+        //l'avatar de luser
         Picasso.get().load(myUserProfile.getUserAvatarURL())
                 .resize(100, 100)
                 .centerCrop()
@@ -144,17 +140,11 @@ public class ReviewsFragment extends Fragment {
         //on clear le focus du edittext du commentaire
         binding.tvUserComment.clearFocus();
         // on definie notre listener sur notre bouton valider
-        binding.buttonValiderComment.setOnClickListener(validateClickListener());
+        binding.buttonValiderComment.setOnClickListener(validateClickListener(myUserProfile));
 
     }
 
-    /**
-     * Initializes the ViewModel for the fragment.
-     */
-    private void setupViewModel() {
-        //on recupere notre viewmodel via le provider
-        reviewsModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
-    }
+
 
 
     /**
@@ -162,13 +152,13 @@ public class ReviewsFragment extends Fragment {
      *
      * @return a onClickListener for the validate button
      */
-    private View.OnClickListener validateClickListener(){
+    private View.OnClickListener validateClickListener(UserProfile myUserProfile){
         return view -> {
             try{
                 //via addReview() methodes en cascades jusqu'a la data source.
                 reviewsModel.addReview(new Review(myUserProfile.getUserName(),myUserProfile.getUserAvatarURL(),binding.tvUserComment.getText().toString(),Math.round(binding.rbUserRating.getRating())));
                 //maj du recycler via l'adapter
-                reviewAdapter.notifyItemInserted(reviewsModel.getReviews().getValue().size());
+                reviewAdapter.notifyItemInserted(Objects.requireNonNull(reviewsModel.getReviews().getValue()).size());
                 //on clean le champs de saisie et le rating
                 binding.rbUserRating.setRating(0f);
                 binding.tvUserComment.getText().clear();
