@@ -24,7 +24,7 @@
             android:id="@+id/iv_ItemReview_UserAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/content_description_avatar"
+            android:contentDescription="@string/contentDescription_avatar"
             android:scaleType="centerCrop"
             tools:ignore="ImageContrastCheck"
             tools:src="@tools:sample/avatars" />
