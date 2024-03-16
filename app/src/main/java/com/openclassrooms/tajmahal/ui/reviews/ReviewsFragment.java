@@ -110,12 +110,13 @@ public class ReviewsFragment extends Fragment {
      *  Setup the Recyclerview to display the reviews.
      */
     private void setupReviewsList(){
-        //todo views dividers --
-       // binding.rvReviews.addItemDecoration(new DividerItemDecoration(requireActivity().getApplicationContext(),DividerItemDecoration.VERTICAL));
 
         reviewAdapter = new ItemReviewAdapter(reviewsModel.getReviews().getValue());
         //on ajout notre layout manager : vertical avec l'affichage de la liste inverser.
         LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,true);
+        //views dividers --
+        binding.rvReviews.addItemDecoration(new ReviewsItemDecoration(getResources()));
+
         binding.rvReviews.setLayoutManager(reviewsLayoutManager);
         binding.rvReviews.setAdapter(reviewAdapter);
 
