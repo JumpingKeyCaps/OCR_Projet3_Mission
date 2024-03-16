@@ -28,5 +28,9 @@
     <string name="review_error_no_txt_comment">Oops ! Il semblerait que vous ayez oublié d\'écrire un commentaire.</string>
     <string name="review_error_no_rating">N\'oubliez pas de donner une note de 1 à 5 étoiles avec votre avis.</string>
     <string name="review_error_generic">"Une erreur s'est produite, veuillez recommencer s'il vous plaît. "</string>
+    <string name="content_description_avatar">L\'avatar du créateur de l\'avis.</string>
+    <string name="reviews_frag_title">Taj Mahal</string>
+    <string name="contentDescription_backArrow">Une flèche pour revenir à l\'écran précédent.</string>
+    <string name="contentDescription_user_avatar">Une photo de l\'utilisateur actuel de l\'application.</string>
 
 </resources>
