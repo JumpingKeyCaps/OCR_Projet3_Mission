@@ -23,7 +23,7 @@ public class UserProfileRepository {
     /**
      * Constructs a new instance of {@link UserProfileRepository} with the given {@link RestaurantApi}.
      *
-     * @param restaurantApi The network API interface for fetching restaurant data.
+     * @param restaurantApi The network API interface for fetching user profile data.
      */
     @Inject
     public UserProfileRepository(RestaurantApi restaurantApi) {
@@ -32,10 +32,11 @@ public class UserProfileRepository {
 
     /**
      * Fetches the User profile.
+     * <p>
      * This method will make a network call using the provided {@link RestaurantApi} instance
-     * to fetch all data of the current app user.
-     *
-     * @return LiveData holding the UserProfile data object.
+     * to fetch all data of the current app user profile.
+     *</p>
+     * @return LiveData holding the {@link UserProfile} object.
      */
     public LiveData<UserProfile> getUserProfile(){
         return new MutableLiveData<>(restaurantApi.getUserProfile());
