@@ -50,64 +50,7 @@ public class ReviewsSummary {
     }
 
 
-    //---- Getters/Setters
-
-    /**
-     * Return the average rating of the restaurant.
-     *
-     * @return a float representing the average rating
-     */
-    public float getAverageScore() {
-        return averageScore;
-    }
-
-    /**
-     * Set or update the average rating of the restaurant.
-     *
-     * @param averageScore the new average rating
-     */
-    public void setAverageScore(float averageScore) {
-        this.averageScore = averageScore;
-    }
-
-
-    /**
-     * Return the total count of reviews.
-     *
-     * @return a int representing the number of reviews
-     */
-    public int getTotalReviewsCount() {
-        return totalReviewsCount;
-    }
-
-    /**
-     * Set or update the total count of reviews for the restaurant.
-     *
-     * @param totalReviewsCount the total of reviews submitted
-     */
-    public void setTotalReviewsCount(int totalReviewsCount) {
-        this.totalReviewsCount = totalReviewsCount;
-    }
-
-
-    /**
-     * Return the Map for reviews count by rating.
-     *
-     * @return a Map<Integer,Integer> representing the mapping of ratings/number of reviews
-     */
-    public @NonNull Map<Integer, Integer> getNumberOfReviewsForEachScore() {
-        return numberOfReviewsForEachScore;
-    }
-
-    /**
-     * Set or update the Map of number of reviews by available rating.
-     *
-     * @param numberOfReviewsForEachScore the Map<> of reviews count by rating
-     */
-    public void setNumberOfReviewsForEachScore(Map<Integer, Integer> numberOfReviewsForEachScore) {
-        this.numberOfReviewsForEachScore = numberOfReviewsForEachScore;
-    }
-
+    // ---- work methods
 
 
     /**
@@ -210,6 +153,67 @@ public class ReviewsSummary {
             progressOfRatingsBars.add(numberOfReviewsForThisRating);
         }
         return progressOfRatingsBars;
+    }
+
+
+
+
+    //---- Getters/Setters
+
+    /**
+     * Return the average rating of the restaurant.
+     *
+     * @return a float representing the average rating
+     */
+    public float getAverageScore() {
+        return averageScore;
+    }
+
+    /**
+     * Set or update the average rating of the restaurant.
+     *
+     * @param averageScore the new average rating
+     */
+    public void setAverageScore(float averageScore) {
+        this.averageScore = averageScore;
+    }
+
+
+    /**
+     * Return the total count of reviews.
+     *
+     * @return a int representing the number of reviews
+     */
+    public int getTotalReviewsCount() {
+        return totalReviewsCount;
+    }
+
+    /**
+     * Set or update the total count of reviews for the restaurant.
+     *
+     * @param totalReviewsCount the total of reviews submitted
+     */
+    public void setTotalReviewsCount(int totalReviewsCount) {
+        this.totalReviewsCount = totalReviewsCount;
+    }
+
+
+    /**
+     * Return the Map for reviews count by rating.
+     *
+     * @return a Map<Integer,Integer> representing the mapping of ratings/number of reviews
+     */
+    public @NonNull Map<Integer, Integer> getNumberOfReviewsForEachScore() {
+        return numberOfReviewsForEachScore;
+    }
+
+    /**
+     * Set or update the Map of number of reviews by available rating.
+     *
+     * @param numberOfReviewsForEachScore the Map<> of reviews count by rating
+     */
+    public void setNumberOfReviewsForEachScore(Map<Integer, Integer> numberOfReviewsForEachScore) {
+        this.numberOfReviewsForEachScore = numberOfReviewsForEachScore;
     }
 
 
