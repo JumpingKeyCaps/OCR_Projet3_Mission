@@ -5,11 +5,12 @@
     android:id="@+id/fragment_review_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/white"
     tools:context=".ui.reviews.ReviewsFragment">
     <!--[Header]-->
-
-    <!-- (without Toolbar more close to the sketch)-->
+    <!-- I chose not to use a classic ToolBar to get as close as possible to the client model-->
+    <!-- The use of a classic toolbar seems to break the continuity of the design choice of the DetailsFragment screen (which uses a windows FLAG FULL SCREEN).  -->
+    <!--Go back arrows : to return to the previous screen -->
     <ImageView
         android:id="@+id/goBackArrow"
         android:layout_width="20dp"
@@ -17,13 +18,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/goback_arrow"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/tv_title_screen"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_title_screen" />
+        app:layout_constraintTop_toTopOf="@+id/tv_title_screen"
+        android:contentDescription="@string/contentDescription_backArrow" />
+    <!--Main Title -->
     <TextView
         android:id="@+id/tv_title_screen"
-        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -39,20 +40,6 @@
         app:layout_constraintBottom_toTopOf="@+id/review_coordinatorLayout"
         app:layout_constraintStart_toEndOf="@+id/goBackArrow"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- 2nd try with toolbar   (design different de la maquette ) -->
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/goback_arrow"
-        app:title="Taj Mahal"
-        app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-        app:titleTextColor="@color/black" />
-
     <!--[Body]-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/review_coordinatorLayout"
@@ -63,21 +50,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <!--Use of collapsingToolbarLayout to contain the user new reviews section -->
+        <!--allows us to properly compartmentalize the different parts of our layout
+        by providing an effect when the user scrolls to bring a certain focus on the part in use. -->
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/review_app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/review_collapser_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="#00ffffff"
+                app:contentScrim="@color/translucent_color"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 app:scrimAnimationDuration="1000">
-
-                <!-- [Add a review section] -->
+                <!-- ["Add a review" section] -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,27 +72,30 @@
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.5">
 
-                    <!-- User avatar-->
+                    <!-- User avatar : I use a CardView to get a rounded picture displayed via cardCornerRadius attribut-->
+                    <!-- (obviously I can equally reshape the loaded image directly via a Picasso dedicated method) -->
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView"
+                        android:id="@+id/cv_UserAvatar"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="20dp"
-                        android:elevation="0dp"
                         app:cardCornerRadius="40dp"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+                        app:layout_constraintBottom_toTopOf="@+id/cvCommentEntry"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_user_name">
-
+                        <!--The user picture-->
                         <ImageView
                             android:id="@+id/iv_UserAvatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:contentDescription="@string/contentDescription_user_avatar"
                             android:scaleType="centerCrop"
+                            tools:ignore="ImageContrastCheck"
                             tools:src="@tools:sample/avatars" />
                     </androidx.cardview.widget.CardView>
+
                     <!-- User name-->
                     <TextView
                         android:id="@+id/tv_user_name"
@@ -115,15 +105,18 @@
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/jakarta_semibold"
                         android:gravity="center"
-                        tools:text="Manon Garcia"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/gray_color"
                         android:textSize="@dimen/name_text_size"
                         android:typeface="normal"
                         app:autoSizeTextType="none"
                         app:layout_constraintBottom_toTopOf="@+id/rb_UserRating"
-                        app:layout_constraintStart_toEndOf="@+id/cardView" />
-                    <!-- User rating-->
+                        app:layout_constraintStart_toEndOf="@+id/cv_UserAvatar"
+                        tools:ignore="TextSizeCheck"
+                        tools:text="Manon Garcia" />
+
+                    <!-- User rating: I use a small notation bar to maintain general consistency of the layout
+                     and facilitate the use of material style -->
                     <RatingBar
                         android:id="@+id/rb_UserRating"
                         style="@android:style/Widget.Material.RatingBar.Small"
@@ -136,10 +129,10 @@
                         android:rating="0"
                         android:secondaryProgressTint="@android:color/transparent"
                         android:stepSize="1"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+                        app:layout_constraintBottom_toTopOf="@+id/cvCommentEntry"
                         app:layout_constraintStart_toStartOf="@+id/tv_user_name" />
 
-                    <!--bouton valider -->
+                    <!--Validate button -->
                     <Button
                         android:id="@+id/button_Valider_Comment"
                         style="@style/ThemeOverlay.Material3.Button"
@@ -153,30 +146,31 @@
                         android:text="@string/bouton_valider_text"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/Button_text_size"
                         android:typeface="sans"
-                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/rb_UserRating"
-                        app:layout_constraintEnd_toEndOf="@+id/cardView2"
+                        app:layout_constraintEnd_toEndOf="@+id/cvCommentEntry"
                         app:layout_constraintTop_toTopOf="@+id/tv_user_name"
                         app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
                         tools:ignore="TouchTargetSizeCheck" />
 
-                    <!-- Saisie du commentaire : Version avec cardview + edittext (good)-->
+                    <!-- Comment entry : Version with "cardView + EditText"
+                     This allows me to get as close as possible to the client's model
+                      where an OutLinedBox of a TextInputLayout would need to be customized
+                       to achieve the correct radius of the container in particular-->
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView2"
+                        android:id="@+id/cvCommentEntry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="15dp"
-                        android:visibility="visible"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/cardView">
-
+                        app:layout_constraintStart_toStartOf="@+id/cv_UserAvatar">
+                        <!--Comment entry field -->
                         <EditText
                             android:id="@+id/tv_user_comment"
                             android:layout_width="match_parent"
@@ -191,40 +185,12 @@
                             android:inputType="textMultiLine"
                             android:textColor="@color/gray_color"
                             android:textColorHint="@color/text_hint_default_color"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/user_commentary_text_size"
                             android:typeface="sans"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+                            android:importantForAutofill="no" />
 
                     </androidx.cardview.widget.CardView>
-
-                    <!--saisie commentaire : Version avec OutlinedEditText (disabled)-->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/outlinedTextField"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="15dp"
-                        android:hint="@string/comment_hint_txt"
-                        android:visibility="gone"
-                        app:boxStrokeColor="?attr/colorPrimary"
-                        app:boxStrokeErrorColor="?attr/colorError"
-                        app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/cardView"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -232,15 +198,18 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- [View all reviews section] -->
+        <!-- ["View all reviews" section] -->
+        <!--NestedScrollView is here to allow the CollapsingLayout working if the reviews list to display
+         is empty or smaller than the screen hight  -->
         <androidx.core.widget.NestedScrollView
+            android:elevation="3dp"
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             app:layout_anchorGravity="center"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+            <!--Recycler to display the list of reviews -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvReviews"
                 android:overScrollMode="never"
@@ -249,6 +218,4 @@
 
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
