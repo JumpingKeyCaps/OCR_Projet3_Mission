@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingDefaultResource">
 
+    <!--Avatar of the reviewer-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="40dp"
@@ -18,7 +19,7 @@
         app:cardCornerRadius="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <!--User avatar -->
         <ImageView
             android:id="@+id/iv_ItemReview_UserAvatar"
             android:layout_width="match_parent"
@@ -29,6 +30,7 @@
             tools:src="@tools:sample/avatars" />
     </androidx.cardview.widget.CardView>
 
+    <!--Name of the reviewer -->
     <TextView
         android:id="@+id/tv_ItemReview_UserName"
         android:layout_width="wrap_content"
@@ -47,6 +49,7 @@
         tools:ignore="TextSizeCheck"
         tools:text="@tools:sample/full_names" />
 
+    <!--Rating of the reviewer -->
     <RatingBar
         android:id="@+id/rb_ItemReview_UserRating"
         style="@android:style/Widget.Material.RatingBar.Small"
@@ -60,6 +63,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/tv_ItemReview_UserName" />
 
+    <!--The commentary of the reviewer -->
     <TextView
         android:id="@+id/tv_ItemReview_UserCommentary"
         android:layout_width="0dp"
@@ -76,6 +80,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
