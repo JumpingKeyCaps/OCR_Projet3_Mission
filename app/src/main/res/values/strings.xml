@@ -36,5 +36,6 @@
     <string name="content_description_avatar">The avatar of the review creator.</string>
     <string name="contentDescription_backArrow">An arrow to return to the previous screen.</string>
     <string name="contentDescription_user_avatar">A picture of the current user of the app.</string>
+    <string name="leave_review_button_txt">Laisser un avis</string>
 
 </resources>

@@ -32,5 +32,6 @@
     <string name="reviews_frag_title">Taj Mahal</string>
     <string name="contentDescription_backArrow">Une flèche pour revenir à l\'écran précédent.</string>
     <string name="contentDescription_user_avatar">Une photo de l\'utilisateur actuel de l\'application.</string>
+    <string name="leave_review_button_txt">Leave a review</string>
 
 </resources>
