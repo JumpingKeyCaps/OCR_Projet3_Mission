@@ -91,7 +91,6 @@ public class RestaurantFakeApi implements RestaurantApi  {
     }
 
 
-
     /**
      * Add a new review to the restaurant reviews list.
      * This method add a review to the list of the existing reviews.
@@ -102,7 +101,6 @@ public class RestaurantFakeApi implements RestaurantApi  {
     public void addReview(@NonNull Review newReview){
         reviewsWorkingWith.add(newReview);
     }
-
 
 
     /**
