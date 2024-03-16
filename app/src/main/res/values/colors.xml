@@ -11,4 +11,5 @@
     <color name="itemview_separator_color">#dadada</color>
     <color name="fragment_title_color">#333333</color>
     <color name="translucent_color">#00ffffff</color>
+    <color name="leave_review_button_ripple_color">#EAEAEA</color>
 </resources>
