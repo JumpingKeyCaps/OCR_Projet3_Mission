@@ -1,4 +1,4 @@
-package com.openclassrooms.tajmahal.ui.reviews.reviewExceptions;
+package com.openclassrooms.tajmahal.ui.reviews.exceptions;
 
 public class TooLongCommentaryException extends Exception {
 
