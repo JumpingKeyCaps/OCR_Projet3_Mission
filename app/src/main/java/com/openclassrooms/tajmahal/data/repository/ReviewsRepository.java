@@ -19,7 +19,7 @@ import javax.inject.Singleton;
  * Repositories are responsible for coordinating data operations from data sources such as network APIs, databases, etc.
  * Typically in an Android app built with architecture components, the repository will handle
  * the logic for deciding whether to fetch data from a network source or use data from a local cache.
- * <p>
+ * </p>
  */
 @Singleton
 public class ReviewsRepository {
