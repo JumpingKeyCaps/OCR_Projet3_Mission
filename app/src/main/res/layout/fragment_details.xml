@@ -253,7 +253,7 @@
             app:layout_constraintTop_toTopOf="@id/tvRestaurantPhoneNumber" />
 
 
-        <!-- feature to add -->
+        <!-- feature added -->
 
         <!--Average rating of the restaurant -->
         <TextView
@@ -298,7 +298,7 @@
             android:lineSpacingExtra="15sp"
             tools:text="(0)"
             android:textColor="@color/gray_color"
-            android:textSize="12sp"
+            android:textSize="@dimen/reviewsCount_txt_size"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="@+id/rbRestaurantAverageRatingStars"
             app:layout_constraintStart_toStartOf="@+id/rbRestaurantAverageRatingStars"
@@ -390,18 +390,18 @@
             android:fontFamily="@font/jakarta_bold"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Laisser un avis"
+            android:text="@string/leave_review_button_txt"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/gray_color"
-            android:textSize="12sp"
+            android:textSize="@dimen/leave_review_button_txt_size"
             android:textStyle="bold"
             android:typeface="sans"
             app:cornerRadius="14dp"
             app:layout_constraintBottom_toTopOf="@+id/separator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pbRestaurant_one_stars_rating"
-            app:rippleColor="#EAEAEA" />
+            app:rippleColor="@color/leave_review_button_ripple_color" />
 
 
 
