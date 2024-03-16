@@ -47,28 +47,28 @@ public interface RestaurantApi {
      * implementing class, fetching the list of the existing reviews.
      * </p>
      *
-     * @return The Reviews list containing all the review.
+     * @return The {@link Review} list containing all the review.
      */
     List<Review> getReviews();
 
     /**
-     * Retrieves all the user profile.
+     * Retrieves the app user profile.
      * <p>
      * This method will usually be connected to a network call or database query in its
-     * implementing class, fetching the User profile data.
+     * implementing class, fetching the current user profile data.
      * </p>
      *
-     * @return The UserProfile object containing all the details of the user.
+     * @return The {@link UserProfile} object containing all the details of the user.
      */
     UserProfile getUserProfile();
 
     /**
-     * add a new review to the restaurant.
+     * Add a new review to the reviews list of the restaurant.
      * <p>
      * This method will usually be connected to a network call or database query in its
-     * implementing class, add a review to the list of the existing reviews.
+     * implementing class, used to add a review to the list of the existing restaurant reviews .
      * </p>
-     * @param newReview the new Review object to add.
+     * @param newReview the new {@link Review} object to add.
      */
     void addReview(Review newReview);
 
