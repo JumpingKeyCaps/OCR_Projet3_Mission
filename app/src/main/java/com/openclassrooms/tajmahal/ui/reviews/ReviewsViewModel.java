@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
-import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.EmptyCommentaryException;
-import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.EmptyRatingException;
+import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyCommentaryException;
+import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
-import com.openclassrooms.tajmahal.ui.reviews.reviewExceptions.TooLongCommentaryException;
+import com.openclassrooms.tajmahal.ui.reviews.exceptions.TooLongCommentaryException;
 import com.openclassrooms.tajmahal.ui.restaurant.DetailsFragment;
 
 import java.util.List;
