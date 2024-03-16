@@ -16,7 +16,7 @@ import java.util.Objects;
  * Example:
  * <pre>
  * Restaurant tajMahal = new Restaurant("Taj Mahal", "Indian", "11h30 - 22h00",
- *                                      "123 Street", "http://tajmahal.com", "1234567890", true, false);
+ *                                      "123 Street", "<a href="http://tajmahal.com">...</a>", "1234567890", true, false);
  * </pre>
  */
 public class Restaurant {
@@ -54,6 +54,143 @@ public class Restaurant {
         this.takeAway = takeAway;
     }
 
+    /**
+     * Returns the name of the restaurant.
+     *
+     * @return a String of the name
+     */
+    public String getName() {
+        return name;
+    }
+    /**
+     * Set or update the name of the restaurant.
+     *
+     * @param name the new name of the restaurant
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    /**
+     * Returns the restaurant type.
+     *
+     * @return a String representing the type of restaurant
+     */
+    public String getType() {
+        return type;
+    }
+    /**
+     * Set or update the type of the restaurant.
+     *
+     * @param type the new type of the restaurant
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+    /**
+     * Returns the restaurant opening hours.
+     *
+     * @return a String representing the opening hours of the restaurant
+     */
+    public String getHours() {
+        return hours;
+    }
+    /**
+     * Set or update the hours of the restaurant.
+     *
+     * @param hours the new hours of the restaurant
+     */
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+    /**
+     * Returns the restaurant address.
+     *
+     * @return a String of the address of restaurant
+     */
+    public String getAddress() {
+        return address;
+    }
+    /**
+     * Set or update the address of the restaurant.
+     *
+     * @param address the new address of the restaurant
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    /**
+     * Returns the restaurant website.
+     *
+     * @return a String representing the website of restaurant
+     */
+    public String getWebsite() {
+        return website;
+    }
+    /**
+     * Set or update the website of the restaurant.
+     *
+     * @param website the new website of the restaurant
+     */
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+    /**
+     * Returns the restaurant phone number.
+     *
+     * @return a String representing the phone number of restaurant
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    /**
+     * Set or update the phoneNumber of the restaurant.
+     *
+     * @param phoneNumber the new phoneNumber of the restaurant
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    /**
+     * Returns if the restaurant have a dine in service .
+     *
+     * @return a boolean representing answer.
+     */
+    public boolean isDineIn() {
+        return dineIn;
+    }
+
+    /**
+     * Set if the restaurant have a dine in service.
+     *
+     * @param dineIn a boolean to enable/disable the service disponibility.
+     */
+    public void setDineIn(boolean dineIn) {
+        this.dineIn = dineIn;
+    }
+    /**
+     * Returns if the restaurant have a take away service.
+     *
+     * @return a boolean representing answer.
+     */
+    public boolean isTakeAway() {
+        return takeAway;
+    }
+    /**
+     * Set if the restaurant have a take away service.
+     *
+     * @param takeAway a boolean to enable/disable the service disponibility.
+     */
+    public void setTakeAway(boolean takeAway) {
+        this.takeAway = takeAway;
+    }
+
+    /**
+     * Compares this restaurant with another object for equality.
+     * Two restaurant are considered equal if all their fields are identical.
+     *
+     * @param o the object to be compared with
+     * @return true if the objects are equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,74 +199,14 @@ public class Restaurant {
         return dineIn == that.dineIn && takeAway == that.takeAway && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(hours, that.hours) && Objects.equals(address, that.address) && Objects.equals(website, that.website) && Objects.equals(phoneNumber, that.phoneNumber);
     }
 
+    /**
+     * Generates a hash code for this restaurant based on its fields.
+     *
+     * @return the generated hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, type, hours, address, website, phoneNumber, dineIn, takeAway);
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getHours() {
-        return hours;
-    }
-
-    public void setHours(String hours) {
-        this.hours = hours;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public boolean isDineIn() {
-        return dineIn;
-    }
-
-    public void setDineIn(boolean dineIn) {
-        this.dineIn = dineIn;
-    }
-
-    public boolean isTakeAway() {
-        return takeAway;
-    }
-
-    public void setTakeAway(boolean takeAway) {
-        this.takeAway = takeAway;
-    }
-
 
 }
