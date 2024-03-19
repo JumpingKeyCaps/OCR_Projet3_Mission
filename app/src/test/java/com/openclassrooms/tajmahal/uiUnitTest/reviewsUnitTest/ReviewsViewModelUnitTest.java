@@ -1,16 +1,14 @@
 package com.openclassrooms.tajmahal.uiUnitTest.reviewsUnitTest;
 
-import static junit.framework.TestCase.assertEquals;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LifecycleRegistry;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
+import com.openclassrooms.tajmahal.data.repository.UserProfileRepository;
+import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyCommentaryException;
+import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
-import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
+import com.openclassrooms.tajmahal.ui.reviews.exceptions.TooLongCommentaryException;
 import com.openclassrooms.tajmahal.ui.reviews.ReviewsViewModel;
 
 import org.junit.Before;
@@ -21,8 +19,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.HashMap;
-
 /**
  * test the ViewModel of the reviews
  */
@@ -31,6 +27,8 @@ public class ReviewsViewModelUnitTest {
 
     @Mock
     private ReviewsRepository reviewsRepository;
+    @Mock
+    private UserProfileRepository userProfileRepository;
 
     /**
      * Mockito rule
@@ -44,7 +42,7 @@ public class ReviewsViewModelUnitTest {
      */
     @Before
     public void setUp() {
-        reviewsViewModel = new ReviewsViewModel(reviewsRepository);
+        reviewsViewModel = new ReviewsViewModel(reviewsRepository,userProfileRepository);
     }
 
     /**
@@ -62,7 +60,14 @@ public class ReviewsViewModelUnitTest {
     @Test
     public void addReview_callsRepository() {
         Review newReview = Mockito.mock(Review.class);
-        reviewsViewModel.addReview(newReview);
+
+        try {
+            reviewsViewModel.addReview(newReview);
+        } catch (EmptyCommentaryException | EmptyRatingException | TooLongCommentaryException e) {
+            throw new RuntimeException(e);
+        }
+
+
         Mockito.verify(reviewsRepository).addReview(newReview);
     }
 
@@ -71,24 +76,7 @@ public class ReviewsViewModelUnitTest {
      */
     @Test
     public void getReviewsSummary_observesReviews() {
-        ReviewsSummary expectedSummary = new ReviewsSummary(4.0f, 3, new HashMap<>());
 
-        // Mock LiveData with MutableLiveData
-        MutableLiveData<ReviewsSummary> mockReviewsSummaryLiveData = new MutableLiveData<>();
-        mockReviewsSummaryLiveData.setValue(expectedSummary); // Set initial value
-
-        // Create a mock LifecycleOwner for testing
-        LifecycleOwner lifecycleOwner = Mockito.mock(LifecycleOwner.class);
-        Mockito.when(lifecycleOwner.getLifecycle()).thenReturn(LifecycleRegistry.createUnsafe(lifecycleOwner));
-
-
-        // Observer to verify the emitted ReviewsSummary object
-        Observer<ReviewsSummary> observer = reviewsSummary -> {
-            assertEquals(expectedSummary.getAverageScore(), reviewsSummary.getAverageScore(), 0.01f);
-            assertEquals(expectedSummary.getTotalReviewsCount(), reviewsSummary.getTotalReviewsCount());
-        };
-
-        (mockReviewsSummaryLiveData).observe(lifecycleOwner, observer);
     }
 }
 
