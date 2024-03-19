@@ -81,7 +81,6 @@ public class ReviewsViewModelUnitTest {
     public void test_addReview_EmptyComment_Exception() {
         Review newReview = Mockito.mock(Review.class);
         Mockito.when(newReview.getComment()).thenReturn("");
-        Mockito.when(newReview.getRate()).thenReturn(3);
         try {
             reviewsViewModel.addReview(newReview);
         } catch (Exception e) {
