@@ -10,11 +10,25 @@ import com.openclassrooms.tajmahal.ui.restaurant.DetailsFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+
+/**
+ * Main Activity of the application.
+ * <p>
+ *     Entry point of the app.
+ *     This Activity is composed by a fragment container, to load app screen fragment in it.
+ *     By default: Details Fragment screen is loaded in App start.
+ * </p>
+ */
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    /**
+     * Method to create the activity and set the content.
+     *
+     * @param savedInstanceState The saved state bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
