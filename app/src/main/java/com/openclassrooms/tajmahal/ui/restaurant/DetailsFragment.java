@@ -66,10 +66,8 @@ public class DetailsFragment extends Fragment {
         setupUI(); // Sets up user interface components.
         setupViewModel(); // Prepares the ViewModel for the fragment.
         detailsViewModel.getTajMahalRestaurant().observe(getViewLifecycleOwner(), this::updateUIWithRestaurant); // Observes changes in the restaurant data and updates the UI accordingly.
-        // call fetching method of viewmodel to generate the livedata for reviewsSummary
-        detailsViewModel.fetchReviews();
+        detailsViewModel.fetchReviews(); // call fetching method of ViewModel to generate the livedata for reviewsSummary
         detailsViewModel.reviewsSummary.observe(getViewLifecycleOwner(),this::updateUIWithReviewsSummary );
-
     }
 
     /**
@@ -104,7 +102,6 @@ public class DetailsFragment extends Fragment {
      */
     private void setupViewModel() {
         detailsViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
-
     }
 
     /**
@@ -130,7 +127,6 @@ public class DetailsFragment extends Fragment {
         binding.buttonWebsite.setOnClickListener(v -> openBrowser(restaurant.getWebsite()));
     }
 
-
     /**
      * Updates the UI components with the provided Reviews Summary data.
      *
@@ -149,7 +145,7 @@ public class DetailsFragment extends Fragment {
         binding.rbRestaurantAverageRatingStars.setRating(AVERAGE_RATING);
 
         //le nombre de reviews ---
-        //on utilise la class utilitaire pour formater le nombre total de reviews
+        //on utilise la methode du ViewModel pour formater le nombre total de reviews
         binding.tvRestaurantTotalNumberReviews.setText(reviewsSummary.totalNumberOfReviewsStringFormat(this.getContext(),TOTAL_REVIEWS_COUNT));
 
         // les progressbars ---
@@ -161,7 +157,7 @@ public class DetailsFragment extends Fragment {
         binding.pbRestaurantFourStarsRating.setMax(TOTAL_REVIEWS_COUNT);
         binding.pbRestaurantFiveStarsRating.setMax(TOTAL_REVIEWS_COUNT);
 
-        //on generent notre liste de progress values via notre class utilitaire
+        //on generent notre liste de 'progress values' via le ViewModel
         List<Integer> progressOfRatingsBars = reviewsSummary.safeProgressRatingBarsValuesListGenerator();
 
         //on MAJ nos progressbars et on les anims
@@ -171,7 +167,7 @@ public class DetailsFragment extends Fragment {
         binding.pbRestaurantFourStarsRating.setProgress(progressOfRatingsBars.get(3),true);
         binding.pbRestaurantFiveStarsRating.setProgress(progressOfRatingsBars.get(4),true);
 
-        //le boutons pour add un avis ---
+        //le bouton pour add un avis et naviguer vers le Reviews Fragment ---
         binding.tbRestaurantAddReview.setOnClickListener(v -> goToReviewsScreen());
 
     }
@@ -180,8 +176,7 @@ public class DetailsFragment extends Fragment {
      *  navigation to Reviews Fragment screen.
      **/
     private void goToReviewsScreen(){
-        //todo - navigation vers frag reviews here !
-
+        //Navigation vers fragment reviews
         getParentFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right)
@@ -189,7 +184,6 @@ public class DetailsFragment extends Fragment {
                 .replace(R.id.container, ReviewsFragment.newInstance())
                 .commit();
     }
-
 
 
     /**
