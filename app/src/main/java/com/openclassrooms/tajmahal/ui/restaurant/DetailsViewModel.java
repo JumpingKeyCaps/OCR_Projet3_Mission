@@ -23,31 +23,49 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * MainViewModel is responsible for preparing and managing the data for the {@link DetailsFragment}.
- * It communicates with the {@link RestaurantRepository} to fetch restaurant details and provides
- * utility methods related to the restaurant UI.
+ * It communicates with the {@link RestaurantRepository} and {@link ReviewsRepository} to fetch restaurant details and Reviews.
+ * Provides utility methods related to the restaurant UI and Rating UI.
  * This ViewModel is integrated with Hilt for dependency injection.
  */
 @HiltViewModel
 public class DetailsViewModel extends ViewModel {
-
+    /** The source repository for the restaurant details */
     private final RestaurantRepository restaurantRepository;
+    /** The source repository for the  restaurant reviews details */
     private final ReviewsRepository reviewsRepository;
 
+
+    /**
+     * The LiveData to fetch and expose the restaurant list of reviews.
+     * This liveData is initialised, his values will be added
+     * by the call of the fetchReviews() public method from the fragment.
+     */
     private final MutableLiveData<List<Review>> reviews = new MutableLiveData<>();
 
+    /**
+     *  The LiveData to "generate" and expose the ReviewsSummary object with the restaurant reviews details.
+     *  <p>
+     *  ReviewsSummary object is constructed by the transformation of the reviews livedata data.
+     *  When the fragment call fetchReviews() method, reviews livedata add the data from the reviews repository.
+     *  reviewSummary live data is "updated" by this data change, and create a new ReviewsSummary object with them.
+     *  Then this new object is exposed with his new values to the fragment.
+     *  </p>
+     */
     final LiveData<ReviewsSummary> reviewsSummary = Transformations.map(reviews, input ->
             new ReviewsSummary(reviews.getValue())
     );
+
+
     /**
      * Constructor that Hilt will use to create an instance of MainViewModel.
      *
      * @param restaurantRepository The repository which will provide restaurant data.
+     * @param reviewsRepository The repository which will provide reviews data.
      */
     @Inject
     public DetailsViewModel(RestaurantRepository restaurantRepository, ReviewsRepository reviewsRepository) {
         this.restaurantRepository = restaurantRepository;
         this.reviewsRepository = reviewsRepository;
-
     }
 
     /**
@@ -97,15 +115,13 @@ public class DetailsViewModel extends ViewModel {
         return dayString;
     }
 
-
     /**
-     * Methode to fetch all reviews from reviews repository
+     * Methode to fetch all reviews from reviews repository.
      */
     public void fetchReviews(){
         //Set the value of the reviews livedata
         reviews.setValue(reviewsRepository.getReviews().getValue());
 
     }
-
 
 }
