@@ -1,6 +1,8 @@
 package com.openclassrooms.tajmahal.uiUnitTest.reviewsUnitTest;
 
 
+import static org.junit.Assert.assertTrue;
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
@@ -20,7 +22,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
- * test the ViewModel of the reviews
+ * Test the ViewModel of the reviews
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ReviewsViewModelUnitTest {
@@ -60,7 +62,8 @@ public class ReviewsViewModelUnitTest {
     @Test
     public void addReview_callsRepository() {
         Review newReview = Mockito.mock(Review.class);
-
+        Mockito.when(newReview.getComment()).thenReturn("This is a test review comment");
+        Mockito.when(newReview.getRate()).thenReturn(3);
         try {
             reviewsViewModel.addReview(newReview);
         } catch (EmptyCommentaryException | EmptyRatingException | TooLongCommentaryException e) {
@@ -69,6 +72,52 @@ public class ReviewsViewModelUnitTest {
 
 
         Mockito.verify(reviewsRepository).addReview(newReview);
+    }
+
+    /**
+     * Test addReview method Empty Comment exception
+     */
+    @Test
+    public void test_addReview_EmptyComment_Exception() {
+        Review newReview = Mockito.mock(Review.class);
+        Mockito.when(newReview.getComment()).thenReturn("");
+        Mockito.when(newReview.getRate()).thenReturn(3);
+        try {
+            reviewsViewModel.addReview(newReview);
+        } catch (Exception e) {
+            assertTrue(e instanceof EmptyCommentaryException);
+        }
+    }
+    /**
+     * Test addReview method Empty rating exception
+     */
+    @Test
+    public void test_addReview_EmptyRating_Exception() {
+        Review newReview = Mockito.mock(Review.class);
+        Mockito.when(newReview.getComment()).thenReturn("not an empty comment");
+        Mockito.when(newReview.getRate()).thenReturn(0);
+        try {
+            reviewsViewModel.addReview(newReview);
+        } catch (Exception e) {
+            assertTrue(e instanceof EmptyRatingException);
+        }
+    }
+    /**
+     * Test addReview method TooLong commentary exception
+     */
+    @Test
+    public void test_addReview_TooLongCommentary_Exception() {
+        Review newReview = Mockito.mock(Review.class);
+        Mockito.when(newReview.getComment()).thenReturn(
+                " A very long comment with more than 255 char in it that will trigger the too long commentary exception." +
+                        "A very long comment with more than 255 char in it that will trigger the too long commentary exception" +
+                        "A very long comment with more than 255 char in it that will trigger the too long commentary exception");
+        Mockito.when(newReview.getRate()).thenReturn(4);
+        try {
+            reviewsViewModel.addReview(newReview);
+        } catch (Exception e) {
+            assertTrue(e instanceof TooLongCommentaryException);
+        }
     }
 
     /**
