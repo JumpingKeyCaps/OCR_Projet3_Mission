@@ -10,7 +10,6 @@ import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyCommentaryExceptio
 import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
 import com.openclassrooms.tajmahal.ui.reviews.exceptions.TooLongCommentaryException;
-import com.openclassrooms.tajmahal.ui.restaurant.DetailsFragment;
 
 import java.util.List;
 
@@ -19,8 +18,8 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
- * ReviewsViewModel is responsible for preparing and managing the data for the {@link DetailsFragment}.
- * and for the {@link }ReviewsFragment. It communicates with the {@link ReviewsRepository} to fetch reviews details and provides
+ * ReviewsViewModel is responsible for preparing and managing the data for the {@link ReviewsFragment}.
+ * It communicates with the {@link ReviewsRepository} to fetch reviews details and provides
  * utility methods related to the restaurant reviewing UI.
  * This ViewModel is integrated with Hilt for dependency injection.
  */
@@ -29,12 +28,14 @@ public class ReviewsViewModel extends ViewModel {
 
     private final ReviewsRepository reviewsRepository;
     private final UserProfileRepository userProfileRepository;
-
     final private static int COMMENT_MAX_CHAR_ALLOWED = 255;
+
+
     /**
      * Constructor that Hilt will use to create an instance of the ViewModel.
      *
      * @param reviewsRepository The repository which will provide reviews data.
+     * @param userProfileRepository The repository which will provide User Profile data.
      */
     @Inject
     public ReviewsViewModel(ReviewsRepository reviewsRepository,UserProfileRepository userProfileRepository) {
@@ -45,36 +46,33 @@ public class ReviewsViewModel extends ViewModel {
     /**
      * Fetches the list of reviews.
      *
-     * @return List of reviews of the  restaurant.
+     * @return List of the restaurant reviews.
      */
     public LiveData<List<Review>> getReviews() {
         return reviewsRepository.getReviews();
     }
 
-
     /**
-     * add a new review to the restaurant.
+     * Add a new review to the restaurant.
      * <p>
-     * This method will usually be connected to a network call or database query in its
-     * implementing class, add a review to the list of the existing reviews.
+     * This method will use some custom Exceptions to filter if the review
+     * is ok to be add in reviews list.
      * </p>
-     * @param newReview the new review to add
+     * @param newReview the new review object to add to the list of reviews
      */
     public void addReview(Review newReview) throws EmptyCommentaryException, EmptyRatingException, TooLongCommentaryException {
-        //on verifie que le message n'est pas vide
-        if(newReview.getComment().isEmpty()){  // ----------  on verifi que le commentaire comporte du text
+        //on verifie l'integriter de notre review a ajouter
+        if(newReview.getComment().isEmpty()){  // ----------  on verifie que le message n'est pas vide
             throw new EmptyCommentaryException();
         }else if(newReview.getRate() == 0f){  // ----------  on verifie que la note est mise
             throw new EmptyRatingException();
         }else if(newReview.getComment().length() > COMMENT_MAX_CHAR_ALLOWED){// ----------  on verifi que le text n'est pas trop long
             throw new TooLongCommentaryException();
         }else{
+            //All is ok,  on ajoute notre reviews a la liste des reviews.
             reviewsRepository.addReview(newReview);
         }
-
     }
-
-
 
     /**
      * Fetches the details of the user profile.
@@ -84,7 +82,5 @@ public class ReviewsViewModel extends ViewModel {
     public LiveData<UserProfile> getUserProfile() {
         return userProfileRepository.getUserProfile();
     }
-
-
 
 }
