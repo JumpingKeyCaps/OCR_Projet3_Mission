@@ -44,7 +44,6 @@ public class ItemReviewAdapterUnitTest {
         assertNotNull(adapter);
     }
 
-
     /**
      * Test the Binding methode
      */
@@ -69,7 +68,5 @@ public class ItemReviewAdapterUnitTest {
         // Assert
         assertEquals(expectedCount, actualCount);
     }
-
-
 
 }

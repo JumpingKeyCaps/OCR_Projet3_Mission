@@ -42,7 +42,7 @@ public class ItemReviewViewHolderUnitTest {
      * Test the good inflation of the view holder
      */
     @Test
-    public void constructor_inflatesViewsCorrectly() {
+    public void testConstructor_inflatesViewsCorrectly() {
         // Arrange with mockito
         Mockito.when(itemView.findViewById(R.id.iv_ItemReview_UserAvatar)).thenReturn(reviewUserAvatar);
         Mockito.when(itemView.findViewById(R.id.tv_ItemReview_UserName)).thenReturn(reviewUserName);
