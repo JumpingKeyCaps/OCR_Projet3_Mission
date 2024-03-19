@@ -37,6 +37,9 @@ import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * The Fragment to display all restaurant reviews and add a new review.
+ */
 @AndroidEntryPoint
 public class ReviewsFragment extends Fragment {
 
@@ -110,11 +113,11 @@ public class ReviewsFragment extends Fragment {
     private void setupReviewsList(){
 
         reviewAdapter = new ItemReviewAdapter(reviewsModel.getReviews().getValue());
-        //on ajout notre layout manager : vertical avec l'affichage de la liste inverser.
+        //on ajoute notre layout manager : vertical avec l'affichage de la liste inverser.
         LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,true);
-        //views dividers --
+        //Custom views dividers
         binding.rvReviews.addItemDecoration(new ReviewsItemDecoration(getResources()));
-
+        //on associe le RecyclerView avec son layout manager et son adapter.
         binding.rvReviews.setLayoutManager(reviewsLayoutManager);
         binding.rvReviews.setAdapter(reviewAdapter);
 
@@ -122,6 +125,7 @@ public class ReviewsFragment extends Fragment {
 
     /**
      *  Setup the UI of the user rating/comment feature.
+     * @param myUserProfile the user profile object
      */
     private void setupAddReviewUI(UserProfile myUserProfile){
         //l'avatar de luser
@@ -144,9 +148,6 @@ public class ReviewsFragment extends Fragment {
 
     }
 
-
-
-
     /**
      * OnClickListener to submit user review.
      *
@@ -163,8 +164,9 @@ public class ReviewsFragment extends Fragment {
                 binding.rbUserRating.setRating(0f);
                 binding.tvUserComment.getText().clear();
             }catch (Exception e){
-                buttonErrorAnimation();
-                Snackbar.make(view,getReviewErrorMessage(e) , Snackbar.LENGTH_SHORT).show();
+                //si une des custom exceptions est lever au addReview() du ViewModel
+                buttonErrorAnimation(); // retour visuel pour l'user via une animation sur le bouton
+                Snackbar.make(view,getReviewErrorMessage(e) , Snackbar.LENGTH_SHORT).show(); // on notifie l'user via un text informatif dans une snackbar.
             }
             //on ferme le clavier si il est ouvert
             hideKeyboard(getActivity());
@@ -174,6 +176,12 @@ public class ReviewsFragment extends Fragment {
         };
     }
 
+    /**
+     * Get the Error message to display to the user if adding a review fail.
+     *
+     * @param e the exception raised.
+     * @return the message reference to display to the user
+     */
     private int getReviewErrorMessage(Exception e){
         if (e instanceof EmptyCommentaryException) {
             return R.string.review_error_no_txt_comment;
@@ -186,9 +194,8 @@ public class ReviewsFragment extends Fragment {
         }
     }
 
-
     /**
-     *  Animate validate button when a error happen during review posting.
+     *  Animate button when a error happen during review posting.
      */
     private void buttonErrorAnimation(){
         binding.buttonValiderComment.animate().cancel(); // on annule l'animation, avant dans lancer une nouvelle
@@ -198,7 +205,7 @@ public class ReviewsFragment extends Fragment {
 
     /**
      * Hide the keyboard if open
-     * @param activity  an activity reference to allow for system service call.
+     * @param activity  an activity reference to allow system service call.
      */
     public static void hideKeyboard(Activity activity) {
         try {
@@ -213,6 +220,5 @@ public class ReviewsFragment extends Fragment {
             Log.e("KeyboardBehavior", "hideKeyboard: failed ! no visible keyboard found ");
         }
     }
-
 
 }
