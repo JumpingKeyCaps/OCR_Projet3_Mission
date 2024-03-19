@@ -200,7 +200,7 @@
 
         <!-- ["View all reviews" section] -->
         <!--NestedScrollView is here to allow the CollapsingLayout working if the reviews list to display
-         is empty or smaller than the screen hight  -->
+         is empty or smaller than the screen high  -->
         <androidx.core.widget.NestedScrollView
             android:elevation="3dp"
             android:id="@+id/nestedScrollView"
