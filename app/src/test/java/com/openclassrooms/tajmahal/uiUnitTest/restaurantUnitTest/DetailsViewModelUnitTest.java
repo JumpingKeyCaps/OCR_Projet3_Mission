@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.openclassrooms.tajmahal.data.repository.RestaurantRepository;
+import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.ui.restaurant.DetailsViewModel;
 
@@ -32,16 +33,22 @@ public class DetailsViewModelUnitTest {
     @Mock
     private RestaurantRepository mockRestaurantRepository;
 
+    @Mock
+    private ReviewsRepository mockReviewsRepository;
+
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Mock
     private DetailsViewModel viewModel;
 
+    /**
+     * Mockito Setup
+     */
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        viewModel = new DetailsViewModel(mockRestaurantRepository);
+        viewModel = new DetailsViewModel(mockRestaurantRepository,mockReviewsRepository);
     }
 
     /**
@@ -55,13 +62,12 @@ public class DetailsViewModelUnitTest {
         restaurantLiveData.setValue(new Restaurant("Taj Mahal","","","","","",true,true));
         Mockito.when(mockRestaurantRepository.getRestaurant()).thenReturn(restaurantLiveData);
 
-        // Get live data
+        //Act:  Get the live data
         LiveData<Restaurant> restaurantLiveData2 = viewModel.getTajMahalRestaurant();
 
-        // Assert data
+        // Assert
         assertEquals(restaurantLiveData2, restaurantLiveData);
     }
-
 
     /**
      * Test of default value to getCurrentDay() method
@@ -71,9 +77,9 @@ public class DetailsViewModelUnitTest {
         // Mock context with string resources (doesn't matter which day)
         Context context = Mockito.mock(Context.class);
         Mockito.when(context.getString(Mockito.anyInt())).thenReturn("");
-
+        //Act
         String currentDay = viewModel.getCurrentDay(context);
-
+        // Assert
         assertEquals("", currentDay);
     }
 
