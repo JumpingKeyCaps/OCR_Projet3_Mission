@@ -14,12 +14,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * Reviews item adapter user by the Recyclerview of ReviewsFragment.
- * Use a ItemReviewViewHolder to display the reviews of the users.
- *
+ * The Adapter used to display each line of the restaurant reviews.
+ *<p>
+ * ItemReviewAdapter is used by the Recyclerview of ReviewsFragment.
+ * Use a ItemReviewViewHolder to display the line representing the review of an user.
+ *</p>
  */
 public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder>  {
 
+    /**The list of reviews to display */
     private  List<Review> itemsReview;
 
     /**
@@ -31,10 +34,9 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
     }
 
     /**
-     * Create new ViewHolder to use with thos adapter.
+     * Create new ViewHolder to use with this adapter.
      *
-     * @param parent The ViewGroup into which the new View will be added after it is bound to
-     *               an adapter position.
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position.
      * @param viewType The view type of the new View.
      *
      * @return the ItemReviewViewHolder to use to bind the list.
@@ -42,6 +44,7 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
     @NonNull
     @Override
     public ItemReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //On inflate le layout utiliser pour nos lignes d'avis
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_review, parent, false);
         return new ItemReviewViewHolder(view);
     }
@@ -55,23 +58,21 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull ItemReviewViewHolder holder, int position) {
+        //On recupere l'objet review a la position donner dans notre liste de reviews.
         Review CurrentReview = itemsReview.get(position);
+
+        //On passe les datas au views correspondantes de notre holder
         holder.reviewUserName.setText(CurrentReview.getUsername());
         holder.reviewUserCommentary.setText(CurrentReview.getComment());
         holder.reviewUserRating.setRating(CurrentReview.getRate());
 
-        // Charger l'image de l'utilisateur via Picasso
-
-        //  Picasso.get().load(CurrentReview.getPicture()).into(holder.reviewUserAvatar);
-
-        //on la resize a une taille acceptable pour fluidifier le recyclerview
-        //on place une image par dflt le temps du chargement, et la mm si une erreur est lever durant cette phase.
+        // Chargement avec Picasso de l'avatar via son url
         Picasso.get().load(CurrentReview.getPicture())
-                .resize(100, 100)
+                .resize(100, 100) //on la resize a une taille acceptable pour les perfomances du  recyclerview
                 .centerCrop()
-                .placeholder(R.drawable.logo)
-                .error(R.drawable.logo)
-                .into(holder.reviewUserAvatar);
+                .placeholder(R.drawable.logo) //on place une image par dflt le temps du chargement,
+                .error(R.drawable.logo)  //idem si une erreur est lever durant cette phase.
+                .into(holder.reviewUserAvatar); // on charge l'image dans la vue de notre holder
     }
 
     /**
@@ -86,8 +87,13 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
 
     /**
      * Update the reviewsList of the adapter.
+     * <p>
+     *      called by the fragment to update the adapter used list of reviews
+     *      when the fragment observe a change in source data, he can update
+     *      the RecyclerView displayed list via this method from the adapter.
+     * </p>
      *
-     * @param itemsReview the list to update by
+     * @param itemsReview the reviews updated list to use with the adapter.
      */
     public void UpdateReviewsList(List<Review> itemsReview){
         this.itemsReview = itemsReview;
