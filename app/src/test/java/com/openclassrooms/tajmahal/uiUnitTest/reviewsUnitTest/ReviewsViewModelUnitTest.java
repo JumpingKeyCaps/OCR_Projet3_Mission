@@ -51,7 +51,7 @@ public class ReviewsViewModelUnitTest {
      * Test getReviews call to repository
      */
     @Test
-    public void getReviews_callsRepository() {
+    public void test_getReviews_callsRepository() {
         reviewsViewModel.getReviews();
         Mockito.verify(reviewsRepository).getReviews();
     }
@@ -60,7 +60,7 @@ public class ReviewsViewModelUnitTest {
      * Test addReview method call to repository
      */
     @Test
-    public void addReview_callsRepository() {
+    public void test_addReview_callsRepository() {
         Review newReview = Mockito.mock(Review.class);
         Mockito.when(newReview.getComment()).thenReturn("This is a test review comment");
         Mockito.when(newReview.getRate()).thenReturn(3);
@@ -120,12 +120,6 @@ public class ReviewsViewModelUnitTest {
         }
     }
 
-    /**
-     * Test getReviewsSummary observer
-     */
-    @Test
-    public void getReviewsSummary_observesReviews() {
 
-    }
 }
 
