@@ -15,26 +15,29 @@ import java.util.Objects;
 
 /**
  * Item decoration to use with the RecyclerView of ReviewsFragment to separate itemReview.
+ * add a custom margin at Start and End to the line separator.
  */
 public class ReviewsItemDecoration extends RecyclerView.ItemDecoration{
 
-     private final int MARGIN_LATERAL = 20;
+    private final int MARGIN_LATERAL = 20;
     private final float STROKE_WIDTH = 0.75f;
     private final Paint paint;
-
     private final int marginInDp;
     private final float strokeWidthInDp;
 
     /**
      * Constructor of the ItemDecoration
+     * @param resources to adapt the margin to the screen density and get color to apply.
      */
     public ReviewsItemDecoration(Resources resources) {
+        //Convert values to use in Dp
         marginInDp = (int) (MARGIN_LATERAL * resources.getDisplayMetrics().density);
         strokeWidthInDp = (int) (STROKE_WIDTH * resources.getDisplayMetrics().density);
-
+        //Add color to the separator
         paint = new Paint();
         paint.setColor(resources.getColor(R.color.itemview_separator_color));
-        paint.setStrokeWidth(strokeWidthInDp); // Épaisseur du séparateur
+        //Line stroke
+        paint.setStrokeWidth(strokeWidthInDp);
     }
 
     /**
@@ -65,15 +68,14 @@ public class ReviewsItemDecoration extends RecyclerView.ItemDecoration{
     public void onDraw(@NonNull Canvas canvas, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDraw(canvas, parent, state);
         //on parcours tout les elements et on ajoute notre separateur a chaque fois
-        // Dessinez le séparateur en bas de chaque élément,
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
-
+            //on se positionne pour dessiner
             int top = child.getBottom();
             int right = parent.getWidth() - marginInDp;
             float bottom = top + strokeWidthInDp; // Épaisseur du séparateur
-
+            // Dessine le séparateur en bas de l'element.
             canvas.drawLine(marginInDp, top, right, bottom, paint);
         }
     }
