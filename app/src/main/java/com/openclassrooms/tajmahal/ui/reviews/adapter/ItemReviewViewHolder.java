@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.openclassrooms.tajmahal.R;
 
 /**
- * ViewHolder used with {itemReviewAdapter}
- * representing the view used for each element to display
- * in the recyclerView, for an user reviews.
+ * ViewHolder used with {@link ItemReviewAdapter}
+ * Hold the views used for each element to display
+ * in the recyclerView, for an user review.
  *
  **/
 public class ItemReviewViewHolder extends RecyclerView.ViewHolder {
-
 
     public ImageView reviewUserAvatar;
     public TextView reviewUserName;
@@ -26,7 +25,7 @@ public class ItemReviewViewHolder extends RecyclerView.ViewHolder {
     /**
      * Constructor of the holder.
      *
-     * @param itemView the current line view root
+     * @param itemView the inflated line Layout to use.
      * */
     public ItemReviewViewHolder(View itemView) {
         super(itemView);
