@@ -17,10 +17,10 @@ import com.openclassrooms.tajmahal.R;
  **/
 public class ItemReviewViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView reviewUserAvatar;
-    public TextView reviewUserName;
-    public RatingBar reviewUserRating;
-    public TextView reviewUserCommentary;
+    public final ImageView reviewUserAvatar;
+    public final TextView reviewUserName;
+    public final RatingBar reviewUserRating;
+    public final TextView reviewUserCommentary;
 
     /**
      * Constructor of the holder.
