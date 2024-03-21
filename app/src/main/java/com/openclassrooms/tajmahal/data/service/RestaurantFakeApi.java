@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
+import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
 import com.openclassrooms.tajmahal.domain.model.UserProfile;
 
 import java.util.ArrayList;
@@ -118,5 +119,16 @@ public class RestaurantFakeApi implements RestaurantApi  {
         return new UserProfile(USER_NAME,USER_AVATAR_URL);
     }
 
+
+    /**
+     * Retrieves the Stats about the restaurant reviews.
+     *
+     * @return a new ReviewsSummary object build with the restaurant list of reviews.
+     */
+    @Override
+    public ReviewsSummary getReviewsSummary(){
+        //On crée notre object Review Summary directement dans la Fake Api via la list d'avis
+        return new ReviewsSummary(getReviews());
+    }
 
 }
