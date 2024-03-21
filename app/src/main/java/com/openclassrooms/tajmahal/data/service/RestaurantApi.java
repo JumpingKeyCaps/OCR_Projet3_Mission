@@ -3,6 +3,7 @@ package com.openclassrooms.tajmahal.data.service;
 
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
+import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
 import com.openclassrooms.tajmahal.domain.model.UserProfile;
 
 import java.util.List;
@@ -71,5 +72,14 @@ public interface RestaurantApi {
      * @param newReview the new {@link Review} object to add.
      */
     void addReview(Review newReview);
+
+    /**
+     * Retrieves the reviews summary object containing all the reviews stats.
+     *
+     * @return the ReviewsSummary object to use.
+     */
+    ReviewsSummary getReviewsSummary();
+
+
 
 }
