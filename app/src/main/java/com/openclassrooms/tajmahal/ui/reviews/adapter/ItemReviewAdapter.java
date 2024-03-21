@@ -11,6 +11,7 @@ import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.domain.model.Review;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +24,13 @@ import java.util.List;
 public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder>  {
 
     /**The list of reviews to display */
-    private  List<Review> itemsReview;
+    private  List<Review> itemsReview = new ArrayList<>();
 
     /**
      * Constructor to get an instance of this adapter.
-     * @param reviewsList the list of review to display.
+     * no param -> the list of reviews will be inserted via UpdateReviewsList() method called from the fragment.
      */
-    public ItemReviewAdapter(List<Review> reviewsList) {
-        this.itemsReview = reviewsList;
-    }
+    public ItemReviewAdapter() { }
 
     /**
      * Create new ViewHolder to use with this adapter.
@@ -95,8 +94,12 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
      *
      * @param itemsReview the reviews updated list to use with the adapter.
      */
-    public void UpdateReviewsList(List<Review> itemsReview){
+    public void updateReviewsList(List<Review> itemsReview){
+        //On MAJ la list de reviews que l'adaptateur doit utiliser
         this.itemsReview = itemsReview;
+        //On avertit  l'adaptateur qu'un changement a eu lieu a la dernier ligne de notre liste
+        //(optimisation pour le cas de l'ajout d'un nouvel avi dans la liste)
+        notifyItemInserted(getItemCount() - 1);
     }
 
 }
