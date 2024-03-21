@@ -1,5 +1,7 @@
 package com.openclassrooms.tajmahal.ui.reviews;
 
+import android.support.annotation.StringRes;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -81,6 +83,7 @@ public class ReviewsViewModel extends ViewModel {
      * @param e the exception raised.
      * @return the message reference to display to the user
      */
+    @StringRes
     public int getReviewErrorMessage(Exception e){
         if (e instanceof EmptyCommentaryException) {
             return R.string.review_error_no_txt_comment;
