@@ -1,10 +1,12 @@
 package com.openclassrooms.tajmahal.uiUnitTest.reviewsUnitTest;
 
 
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
 import com.openclassrooms.tajmahal.data.repository.UserProfileRepository;
 import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyCommentaryException;
@@ -118,6 +120,46 @@ public class ReviewsViewModelUnitTest {
             assertTrue(e instanceof TooLongCommentaryException);
         }
     }
+
+
+    /**
+     * Test the string value returned by getReviewErrorMessage() method for the EmptyCommentaryException.
+     */
+    @Test
+    public void getReviewErrorMessage_emptyCommentaryException_returnsReviewErrorNoTxtComment() {
+        Exception exception = new EmptyCommentaryException();
+        int errorMessage = reviewsViewModel.getReviewErrorMessage(exception);
+        assertEquals(R.string.review_error_no_txt_comment, errorMessage);
+    }
+
+    /**
+     * Test the string value returned by getReviewErrorMessage() method for the TooLongCommentaryException.
+     */
+    @Test
+    public void getReviewErrorMessage_tooLongCommentaryException_returnsReviewErrorTxtTooLong() {
+        Exception exception = new TooLongCommentaryException();
+        int errorMessage = reviewsViewModel.getReviewErrorMessage(exception);
+        assertEquals(R.string.review_error_txt_too_long, errorMessage);
+    }
+    /**
+     * Test the string value returned by getReviewErrorMessage() method for the EmptyRatingException.
+     */
+    @Test
+    public void getReviewErrorMessage_emptyRatingException_returnsReviewErrorNoRating() {
+        Exception exception = new EmptyRatingException();
+        int errorMessage = reviewsViewModel.getReviewErrorMessage(exception);
+        assertEquals(R.string.review_error_no_rating, errorMessage);
+    }
+    /**
+     * Test the string value returned by getReviewErrorMessage() method for all others exceptions.
+     */
+    @Test
+    public void getReviewErrorMessage_otherException_returnsReviewErrorGeneric() {
+        Exception exception = new Exception(); // Any other exception
+        int errorMessage = reviewsViewModel.getReviewErrorMessage(exception);
+        assertEquals(R.string.review_error_generic, errorMessage);
+    }
+
 
 
 }
