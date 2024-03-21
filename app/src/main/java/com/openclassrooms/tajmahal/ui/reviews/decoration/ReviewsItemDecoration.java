@@ -1,6 +1,6 @@
 package com.openclassrooms.tajmahal.ui.reviews.decoration;
 
-import android.content.res.Resources;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -19,23 +19,24 @@ import java.util.Objects;
  */
 public class ReviewsItemDecoration extends RecyclerView.ItemDecoration{
 
-    private final int MARGIN_LATERAL = 20;
-    private final float STROKE_WIDTH = 0.75f;
+    private final static int MARGIN_LATERAL = 20;
+    private final static float STROKE_WIDTH = 0.75f;
     private final Paint paint;
     private final int marginInDp;
     private final float strokeWidthInDp;
 
     /**
      * Constructor of the ItemDecoration
-     * @param resources to adapt the margin to the screen density and get color to apply.
+     *
+     * @param context to get a reference to adapt the margin to the screen density and get the color to apply.
      */
-    public ReviewsItemDecoration(Resources resources) {
+    public ReviewsItemDecoration(Context context) {
         //Convert values to use in Dp
-        marginInDp = (int) (MARGIN_LATERAL * resources.getDisplayMetrics().density);
-        strokeWidthInDp = (int) (STROKE_WIDTH * resources.getDisplayMetrics().density);
+        marginInDp = (int) (MARGIN_LATERAL * context.getResources().getDisplayMetrics().density);
+        strokeWidthInDp = (int) (STROKE_WIDTH * context.getResources().getDisplayMetrics().density);
         //Add color to the separator
         paint = new Paint();
-        paint.setColor(resources.getColor(R.color.itemview_separator_color));
+        paint.setColor(context.getColor(R.color.itemview_separator_color));
         //Line stroke
         paint.setStrokeWidth(strokeWidthInDp);
     }
