@@ -24,10 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.databinding.FragmentReviewsBinding;
 import com.openclassrooms.tajmahal.ui.reviews.decoration.ReviewsItemDecoration;
-import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyCommentaryException;
-import com.openclassrooms.tajmahal.ui.reviews.exceptions.EmptyRatingException;
 import com.openclassrooms.tajmahal.domain.model.Review;
-import com.openclassrooms.tajmahal.ui.reviews.exceptions.TooLongCommentaryException;
 import com.openclassrooms.tajmahal.domain.model.UserProfile;
 import com.openclassrooms.tajmahal.ui.reviews.adapter.ItemReviewAdapter;
 import com.squareup.picasso.Picasso;
@@ -116,7 +113,7 @@ public class ReviewsFragment extends Fragment {
         //on ajoute notre layout manager : vertical avec l'affichage de la liste inverser.
         LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,true);
         //Custom views dividers
-        binding.rvReviews.addItemDecoration(new ReviewsItemDecoration(getResources()));
+        binding.rvReviews.addItemDecoration(new ReviewsItemDecoration(getContext()));
         //on associe le RecyclerView avec son layout manager et son adapter.
         binding.rvReviews.setLayoutManager(reviewsLayoutManager);
         binding.rvReviews.setAdapter(reviewAdapter);
@@ -166,7 +163,7 @@ public class ReviewsFragment extends Fragment {
             }catch (Exception e){
                 //si une des custom exceptions est lever au addReview() du ViewModel
                 buttonErrorAnimation(); // retour visuel pour l'user via une animation sur le bouton
-                Snackbar.make(view,getReviewErrorMessage(e) , Snackbar.LENGTH_SHORT).show(); // on notifie l'user via un text informatif dans une snackbar.
+                Snackbar.make(view,reviewsModel.getReviewErrorMessage(e) , Snackbar.LENGTH_SHORT).show(); // on notifie l'user via un text informatif dans une snackbar.
             }
             //on ferme le clavier si il est ouvert
             hideKeyboard(getActivity());
@@ -176,23 +173,7 @@ public class ReviewsFragment extends Fragment {
         };
     }
 
-    /**
-     * Get the Error message to display to the user if adding a review fail.
-     *
-     * @param e the exception raised.
-     * @return the message reference to display to the user
-     */
-    private int getReviewErrorMessage(Exception e){
-        if (e instanceof EmptyCommentaryException) {
-            return R.string.review_error_no_txt_comment;
-        } else if (e instanceof TooLongCommentaryException) {
-            return R.string.review_error_txt_too_long;
-        } else if (e instanceof EmptyRatingException) {
-            return R.string.review_error_no_rating;
-        } else {
-            return R.string.review_error_generic; // Generic error message for unexpected exceptions
-        }
-    }
+
 
     /**
      *  Animate button when a error happen during review posting.
