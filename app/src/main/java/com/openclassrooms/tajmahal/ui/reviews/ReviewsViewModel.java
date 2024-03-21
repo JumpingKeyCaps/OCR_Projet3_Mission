@@ -3,6 +3,7 @@ package com.openclassrooms.tajmahal.ui.reviews;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
 import com.openclassrooms.tajmahal.data.repository.UserProfileRepository;
 import com.openclassrooms.tajmahal.domain.model.UserProfile;
@@ -75,6 +76,24 @@ public class ReviewsViewModel extends ViewModel {
     }
 
     /**
+     * Get the Error message to display to the user if adding a review fail.
+     *
+     * @param e the exception raised.
+     * @return the message reference to display to the user
+     */
+    public int getReviewErrorMessage(Exception e){
+        if (e instanceof EmptyCommentaryException) {
+            return R.string.review_error_no_txt_comment;
+        } else if (e instanceof TooLongCommentaryException) {
+            return R.string.review_error_txt_too_long;
+        } else if (e instanceof EmptyRatingException) {
+            return R.string.review_error_no_rating;
+        } else {
+            return R.string.review_error_generic; // Generic error message for unexpected exceptions
+        }
+    }
+
+    /**
      * Fetches the details of the user profile.
      *
      * @return LiveData object containing the user profile object.
@@ -82,5 +101,8 @@ public class ReviewsViewModel extends ViewModel {
     public LiveData<UserProfile> getUserProfile() {
         return userProfileRepository.getUserProfile();
     }
+
+
+
 
 }
