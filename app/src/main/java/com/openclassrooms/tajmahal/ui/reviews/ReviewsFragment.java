@@ -112,7 +112,7 @@ public class ReviewsFragment extends Fragment {
      */
     private void setupReviewsList(){
 
-        reviewAdapter = new ItemReviewAdapter(reviewsModel.getReviews().getValue());
+        reviewAdapter = new ItemReviewAdapter();
         //on ajoute notre layout manager : vertical avec l'affichage de la liste inverser.
         LinearLayoutManager reviewsLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,true);
         //Custom views dividers
