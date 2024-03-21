@@ -66,8 +66,7 @@ public class DetailsFragment extends Fragment {
         setupUI(); // Sets up user interface components.
         setupViewModel(); // Prepares the ViewModel for the fragment.
         detailsViewModel.getTajMahalRestaurant().observe(getViewLifecycleOwner(), this::updateUIWithRestaurant); // Observes changes in the restaurant data and updates the UI accordingly.
-        detailsViewModel.fetchReviews(); // call fetching method of ViewModel to generate the livedata for reviewsSummary
-        detailsViewModel.reviewsSummary.observe(getViewLifecycleOwner(),this::updateUIWithReviewsSummary );
+        detailsViewModel.getReviewsSummary().observe(getViewLifecycleOwner(),this::updateUIWithReviewsSummary ); // Observes changes in the stats of restaurant reviews List and update the UI.
     }
 
     /**
