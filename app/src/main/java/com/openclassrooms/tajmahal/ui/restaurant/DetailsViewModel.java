@@ -3,21 +3,17 @@ package com.openclassrooms.tajmahal.ui.restaurant;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.data.repository.RestaurantRepository;
 import com.openclassrooms.tajmahal.data.repository.ReviewsRepository;
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
-import com.openclassrooms.tajmahal.domain.model.Review;
 import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
 
 import javax.inject.Inject;
 
 import java.util.Calendar;
-import java.util.List;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
@@ -34,26 +30,6 @@ public class DetailsViewModel extends ViewModel {
     /** The source repository for the  restaurant reviews details */
     private final ReviewsRepository reviewsRepository;
 
-
-    /**
-     * The LiveData to fetch and expose the restaurant list of reviews.
-     * This liveData is initialised, his values will be added
-     * by the call of the fetchReviews() public method from the fragment.
-     */
-    private final MutableLiveData<List<Review>> reviews = new MutableLiveData<>();
-
-    /**
-     *  The LiveData to "generate" and expose the ReviewsSummary object with the restaurant reviews details.
-     *  <p>
-     *  ReviewsSummary object is constructed by the transformation of the reviews livedata data.
-     *  When the fragment call fetchReviews() method, reviews livedata add the data from the reviews repository.
-     *  reviewSummary live data is "updated" by this data change, and create a new ReviewsSummary object with them.
-     *  Then this new object is exposed with his new values to the fragment.
-     *  </p>
-     */
-    final LiveData<ReviewsSummary> reviewsSummary = Transformations.map(reviews, input ->
-            new ReviewsSummary(reviews.getValue())
-    );
 
 
     /**
@@ -116,12 +92,12 @@ public class DetailsViewModel extends ViewModel {
     }
 
     /**
-     * Methode to fetch all reviews from reviews repository.
+     * Fetch the restaurant list of reviews stats.
+     *
+     * @return a ReviewsSummary object containing all reviews stats data.
      */
-    public void fetchReviews(){
-        //Set the value of the reviews livedata
-        reviews.setValue(reviewsRepository.getReviews().getValue());
-
-    }
+   public LiveData<ReviewsSummary> getReviewsSummary(){
+        return reviewsRepository.getReviewsSummary();
+   }
 
 }
