@@ -93,7 +93,7 @@ public class ReviewsFragment extends Fragment {
         setupReviewsList();
         //on observe notre Livedata de la liste des reviews.
         reviewsModel.getReviews().observe(getViewLifecycleOwner(), items -> {
-            reviewAdapter.UpdateReviewsList(items); // on Maj notre adapter que la list a changer
+            reviewAdapter.updateReviewsList(items); // on Maj notre adapter que la list a changer
         });
         //on observe le LiveData du profile user
         reviewsModel.getUserProfile().observe(getViewLifecycleOwner(), this::setupAddReviewUI);
