@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.openclassrooms.tajmahal.data.service.RestaurantApi;
 import com.openclassrooms.tajmahal.domain.model.Review;
+import com.openclassrooms.tajmahal.domain.model.ReviewsSummary;
 
 import java.util.List;
 
@@ -58,5 +59,15 @@ public class ReviewsRepository {
     public void addReview(@NonNull Review newReview){
         restaurantApi.addReview(newReview);
     }
+
+    /**
+     * Fetch the Reviews summary of the restaurant reviews list.
+     *
+     * @return a LiveData holding the reviews summary object.
+     */
+    public LiveData<ReviewsSummary> getReviewsSummary(){
+        return new MutableLiveData<>(restaurantApi.getReviewsSummary());
+    }
+
 
 }
