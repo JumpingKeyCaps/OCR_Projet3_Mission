@@ -26,11 +26,6 @@ public class ItemReviewAdapter extends RecyclerView.Adapter<ItemReviewViewHolder
     /**The list of reviews to display */
     private  List<Review> itemsReview = new ArrayList<>();
 
-    /**
-     * Constructor to get an instance of this adapter.
-     * no param -> the list of reviews will be inserted via UpdateReviewsList() method called from the fragment.
-     */
-    public ItemReviewAdapter() { }
 
     /**
      * Create new ViewHolder to use with this adapter.
