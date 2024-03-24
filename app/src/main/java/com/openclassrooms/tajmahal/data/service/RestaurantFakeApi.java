@@ -73,7 +73,7 @@ public class RestaurantFakeApi implements RestaurantApi  {
 
 
     /**
-     * Retrieves a hard-coded {@link Review} object for the "Taj Mahal".
+     * Retrieves a hard-coded {@link Review} editable list for the "Taj Mahal" restaurant.
      * <p>
      * This method simulates an API call by immediately returning a modifiable copy
      * of the unmodifiable original reviews list with pre-defined attributes.
