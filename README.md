@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="screenshots/logodemoapp.png" alt="Logo" width="260" height="260">
+  <img src="screenshots/logodemoapp.png" alt="Logo" width="200" height="200">
 </p>
 
 # Taj Mahal App
