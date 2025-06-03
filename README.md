@@ -4,6 +4,13 @@
 
 # Taj Mahal App
 
+![Java](https://img.shields.io/badge/Java-007396?logo=java&logoColor=white)
+![MVVM](https://img.shields.io/badge/MVVM-000000?logo=android&logoColor=white)
+![JUnit](https://img.shields.io/badge/JUnit-25A162?logo=java&logoColor=white)
+![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?logo=androidstudio&logoColor=white)
+![Material Design](https://img.shields.io/badge/Material%20Design-757575?logo=materialdesign&logoColor=white)
+![FakeAPI](https://img.shields.io/badge/FakeAPI-Simulation-blue)
+
 Application Android de gestion d'avis pour le restaurant indien **Taj Mahal**.
 
 Développée en Java avec une architecture **MVVM**, en respectant les bonnes pratiques Android.
@@ -105,11 +112,3 @@ Le restaurant **Taj Mahal**, souhaitant renforcer son image de marque, a command
 
 
 
-![Java](https://img.shields.io/badge/Java-007396?logo=java&logoColor=white)
-![MVVM](https://img.shields.io/badge/MVVM-000000?logo=android&logoColor=white)
-![JUnit](https://img.shields.io/badge/JUnit-25A162?logo=java&logoColor=white)
-![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?logo=androidstudio&logoColor=white)
-![Material Design](https://img.shields.io/badge/Material%20Design-757575?logo=materialdesign&logoColor=white)
-![FakeAPI](https://img.shields.io/badge/FakeAPI-Simulation-blue)
-
----
